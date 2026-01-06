@@ -12,8 +12,9 @@ Features:
 import json
 import os
 import re
-from typing import List, Dict, Optional, Tuple, Set
+from typing import List, Dict, Optional, Tuple, Set, Any
 from pathlib import Path
+from datetime import datetime
 
 # ============================================
 # Load .env file
@@ -77,9 +78,107 @@ def find_database():
 
 DATABASE_PATH = find_database()
 
+# Data refresh settings
+DATA_REFRESH_ENABLED = os.environ.get("AUTO_REFRESH_DATA", "false").lower() == "true"
+DATA_STALE_DAYS = int(os.environ.get("DATA_STALE_DAYS", "30"))  # Refresh if older than 30 days
+
 MIN_CREDITS = 12
 TARGET_CREDITS = 15
 MAX_CREDITS = 18
+
+# ============================================
+# DATA REFRESH FUNCTIONALITY
+# ============================================
+
+def is_data_stale(db_path: str, max_age_days: int = DATA_STALE_DAYS) -> bool:
+    """Check if data file is older than max_age_days"""
+    try:
+        db_file = Path(db_path)
+        if not db_file.exists():
+            return True
+        
+        file_age = (datetime.now() - datetime.fromtimestamp(db_file.stat().st_mtime)).days
+        return file_age > max_age_days
+    except:
+        return True
+
+
+def refresh_course_data(db_path: str = None) -> bool:
+    """
+    Automatically refresh course data using the scraper.
+    Returns True if successful, False otherwise.
+    """
+    try:
+        # Import the update function
+        from update_course_data import update_bot_data
+        
+        db_path = db_path or DATABASE_PATH
+        output_file = str(Path(db_path).name)
+        
+        print("🔄 Data is stale. Refreshing course data...")
+        print("   This may take a few minutes...")
+        print()
+        
+        success = update_bot_data(output_file=output_file, backup=True)
+        
+        if success:
+            print("✓ Data refresh complete!")
+            return True
+        else:
+            print("⚠ Data refresh failed. Using existing data.")
+            return False
+    except ImportError:
+        print("⚠ Cannot refresh data: update_course_data module not available")
+        return False
+    except Exception as e:
+        print(f"⚠ Error refreshing data: {e}")
+        return False
+
+
+def check_and_refresh_data(db_path: str = None, auto_refresh: bool = None) -> str:
+    """
+    Check if data needs refresh and optionally refresh it.
+    
+    Args:
+        db_path: Path to database file
+        auto_refresh: Whether to auto-refresh (None = use DATA_REFRESH_ENABLED)
+    
+    Returns:
+        Path to database file (may be updated)
+    """
+    db_path = db_path or DATABASE_PATH
+    auto_refresh = auto_refresh if auto_refresh is not None else DATA_REFRESH_ENABLED
+    
+    # Check if file exists
+    db_file = Path(db_path)
+    file_exists = db_file.exists()
+    
+    if not auto_refresh:
+        if not file_exists:
+            print(f"⚠ Database file not found: {db_path}")
+            print("   Run 'python update_course_data.py' to create it.")
+        return db_path
+    
+    # Refresh if file doesn't exist OR if it's stale
+    should_refresh = not file_exists or is_data_stale(db_path, DATA_STALE_DAYS)
+    
+    if should_refresh:
+        if not file_exists:
+            print(f"⚠ Database file not found: {db_path}")
+            print("   Auto-refresh enabled. Fetching fresh data...")
+        else:
+            print(f"⚠ Database file is stale (older than {DATA_STALE_DAYS} days)")
+            print("   Auto-refresh enabled. Updating data...")
+        
+        if refresh_course_data(db_path):
+            # Reload the path in case it changed
+            db_path = find_database()
+        else:
+            if not file_exists:
+                print("⚠ Auto-refresh failed. Please run 'python update_course_data.py' manually.")
+    
+    return db_path
+
 
 # ============================================
 # SAS CORE REQUIREMENTS
@@ -381,12 +480,14 @@ def generate_visual_schedule(schedule: List[Dict], scheduler, title: str = "Your
 # ============================================
 
 class RutgersScheduler:
-    def __init__(self, db_path: str = None):
+    def __init__(self, db_path: str = None, auto_refresh: bool = None):
         self.data = {"courses": {}, "indexes": {"by_core_code": {}}}
         self.filler_courses = []
         self.no_prereq_courses = []  # Courses safe for freshmen
         
-        db_path = db_path or DATABASE_PATH
+        # Check and refresh data if needed
+        db_path = check_and_refresh_data(db_path, auto_refresh)
+        
         try:
             with open(db_path, 'r', encoding='utf-8') as f:
                 self.data = json.load(f)
@@ -698,7 +799,7 @@ class RutgersScheduler:
     
     def build_schedule(self, course_keys: List[str], prefs: Dict = None,
                        include_closed: bool = False, target_credits: float = TARGET_CREDITS,
-                       freshman_safe: bool = True) -> Dict:
+                       freshman_safe: bool = True, auto_fill: bool = True) -> Dict:
         """
         Build a schedule with PREREQUISITE CHECKING.
         freshman_safe=True means only add courses without prerequisites during auto-fill.
@@ -757,47 +858,54 @@ class RutgersScheduler:
         
         result['total_credits'] = calc_credits(result['schedule'])
         
-        # Auto-fill with NO-PREREQ courses only
-        filler_list = self.no_prereq_courses if freshman_safe else self.filler_courses
-        
-        attempts = 0
-        while result['total_credits'] < target_credits and attempts < 80:
-            attempts += 1
-            added = False
+        # Auto-fill with NO-PREREQ courses only (if enabled)
+        # Only auto-fill if:
+        # 1. auto_fill is True (default)
+        # 2. We have fewer credits than target
+        # 3. We have at least some courses scheduled (to avoid empty schedules)
+        if auto_fill and result['total_credits'] < target_credits and len(result['schedule']) > 0:
+            print(f"  Auto-filling to reach {target_credits} credits (current: {result['total_credits']:.1f})")
+            filler_list = self.no_prereq_courses if freshman_safe else self.filler_courses
             
-            for filler in filler_list:
-                if filler['key'] in scheduled_keys:
-                    continue
-                if result['total_credits'] + filler['credits'] > MAX_CREDITS:
-                    continue
+            attempts = 0
+            while result['total_credits'] < target_credits and attempts < 80:
+                attempts += 1
+                added = False
                 
-                # Skip if has prereq and we're in freshman_safe mode
-                if freshman_safe and filler['has_prereq']:
-                    continue
-                
-                # Check prereq conflicts
-                if self.check_prereq_conflict(filler['key'], scheduled_keys):
-                    continue
-                
-                sections = self.get_sections(filler['key'], open_only=True,
-                                            exclude_days=exclude_days,
-                                            start_after=prefs.get('start_after'),
-                                            end_before=prefs.get('end_before'))
-                
-                for sec in sections:
-                    if self.can_add_section(sec, result['schedule']):
-                        result['schedule'].append(sec)
-                        scheduled_keys.add(filler['key'])
-                        result['auto_added'].append(filler['key'])
-                        result['total_credits'] += filler['credits']
-                        added = True
+                for filler in filler_list:
+                    if filler['key'] in scheduled_keys:
+                        continue
+                    if result['total_credits'] + filler['credits'] > MAX_CREDITS:
+                        continue
+                    
+                    # Skip if has prereq and we're in freshman_safe mode
+                    if freshman_safe and filler['has_prereq']:
+                        continue
+                    
+                    # Check prereq conflicts
+                    if self.check_prereq_conflict(filler['key'], scheduled_keys):
+                        continue
+                    
+                    sections = self.get_sections(filler['key'], open_only=True,
+                                                exclude_days=exclude_days,
+                                                start_after=prefs.get('start_after'),
+                                                end_before=prefs.get('end_before'))
+                    
+                    for sec in sections:
+                        if self.can_add_section(sec, result['schedule']):
+                            result['schedule'].append(sec)
+                            scheduled_keys.add(filler['key'])
+                            result['auto_added'].append(filler['key'])
+                            result['total_credits'] += filler['credits']
+                            added = True
+                            break
+                    
+                    if added:
                         break
                 
-                if added:
+                if not added:
                     break
-            
-            if not added:
-                break
+        # End of auto-fill block
         
         return result
     
@@ -920,6 +1028,7 @@ class RutgersScheduler:
 # ============================================
 
 def call_llm(prompt: str, system: str = None) -> Optional[str]:
+    """Call the LLM with error handling and logging"""
     if not HF_CLIENT:
         return None
     
@@ -928,6 +1037,11 @@ def call_llm(prompt: str, system: str = None) -> Optional[str]:
         if system:
             messages.append({"role": "system", "content": system})
         messages.append({"role": "user", "content": prompt})
+        
+        # Log LLM call (can be disabled for production)
+        if os.environ.get("DEBUG_LLM", "false").lower() == "true":
+            print(f"[LLM] Calling model: {MODEL_ID}")
+            print(f"[LLM] Prompt length: {len(prompt)} chars")
         
         response = HF_CLIENT.chat_completion(
             model=MODEL_ID,
@@ -939,9 +1053,18 @@ def call_llm(prompt: str, system: str = None) -> Optional[str]:
         if response and response.choices:
             content = response.choices[0].message.content
             content = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL)
+            if os.environ.get("DEBUG_LLM", "false").lower() == "true":
+                print(f"[LLM] Response received: {len(content)} chars")
             return content.strip()
+        else:
+            if os.environ.get("DEBUG_LLM", "false").lower() == "true":
+                print("[LLM] No response or empty choices")
     except Exception as e:
-        print(f"LLM error: {e}")
+        print(f"⚠ LLM error: {e}")
+        # Don't fail silently - log the error but continue
+        import traceback
+        if os.environ.get("DEBUG_LLM", "false").lower() == "true":
+            traceback.print_exc()
     
     return None
 
@@ -1005,16 +1128,66 @@ def extract_prefs(text: str) -> Dict:
     return prefs
 
 
+def search_courses_by_name(text: str, scheduler) -> List[str]:
+    """Search for courses by name/title in the database"""
+    found = []
+    text_lower = text.lower()
+    
+    # Common course name patterns
+    course_patterns = [
+        (r'intro(?:duction)?\s+to\s+microeconomics?', ['220:102']),  # Fixed: micro only matches 220:102
+        (r'intro(?:duction)?\s+to\s+macroeconomics?', ['220:103']),  # Fixed: macro only matches 220:103
+        (r'microeconomics?', ['220:102']),
+        (r'macroeconomics?', ['220:103']),  # Fixed: removed 220:104 (that's intermediate macro)
+        (r'intro(?:duction)?\s+to\s+computer\s+science', ['198:111']),
+        (r'intro(?:duction)?\s+to\s+cs', ['198:111']),
+        (r'calculus\s+i', ['640:151', '640:111']),
+        (r'calculus\s+ii', ['640:152', '640:112']),
+        (r'general\s+chemistry', ['160:161', '160:101']),
+        (r'general\s+physics', ['750:203', '750:201']),
+    ]
+    
+    for pattern, possible_keys in course_patterns:
+        if re.search(pattern, text_lower):
+            for key in possible_keys:
+                course = scheduler.get_course(key)
+                if course:
+                    # Check if course has open sections
+                    open_ct = sum(1 for s in course.get('sections', []) if s and s.get('is_open'))
+                    if open_ct > 0:
+                        found.append(key)
+    
+    # Also search by title in database
+    text_words = set(re.findall(r'\b\w{4,}\b', text_lower))  # Words 4+ chars
+    if len(text_words) >= 2:  # Need at least 2 significant words
+        for key, course in scheduler.data.get('courses', {}).items():
+            title = course.get('title', '').lower()
+            if title:
+                # Check if significant words match
+                title_words = set(re.findall(r'\b\w{4,}\b', title))
+                if text_words and title_words:
+                    overlap = len(text_words & title_words)
+                    # If 2+ words match, it's likely the right course
+                    if overlap >= 2:
+                        open_ct = sum(1 for s in course.get('sections', []) if s and s.get('is_open'))
+                        if open_ct > 0 and key not in found:
+                            found.append(key)
+    
+    return found
+
+
 def parse_courses(text: str, scheduler) -> List[str]:
     found = []
     seen = set()
     
+    # First, try exact course codes (e.g., "220:102")
     for match in re.finditer(r'\b(\d{2,3}):(\d{3})\b', text):
         key = f"{match.group(1).zfill(3)}:{match.group(2)}"
         if key not in seen and scheduler.get_course(key):
             found.append(key)
             seen.add(key)
     
+    # Then try subject + number patterns (e.g., "econ 102")
     patterns = [
         (r'\b(?:cs|comp\s*sci)\s*(\d{3})\b', '198'),
         (r'\bmath\s*(\d{3})\b', '640'),
@@ -1031,6 +1204,13 @@ def parse_courses(text: str, scheduler) -> List[str]:
             if key not in seen and scheduler.get_course(key):
                 found.append(key)
                 seen.add(key)
+    
+    # Finally, search by course name/title
+    name_matches = search_courses_by_name(text, scheduler)
+    for key in name_matches:
+        if key not in seen:
+            found.append(key)
+            seen.add(key)
     
     return found
 
@@ -1074,11 +1254,79 @@ def extract_core_codes(text: str) -> List[str]:
     return list(set(codes))
 
 
+def extract_already_taken_courses(text: str, scheduler) -> List[str]:
+    """Extract courses the user mentions they've already taken"""
+    taken = []
+    text_lower = text.lower()
+    
+    # Patterns indicating courses already taken
+    taken_patterns = [
+        r'(?:already|have|took|taken|completed|finished)\s+(?:taking|taken|took|completed|finished)?\s*(?:intro\s+to\s+)?(?:microeconomics?|macroeconomics?)',
+        r'(?:already|have|took|taken|completed|finished)\s+(?:taking|taken|took|completed|finished)?\s*(?:the\s+)?(?:course|courses|class|classes)?\s*(?:intro\s+to\s+)?(?:microeconomics?|macroeconomics?)',
+    ]
+    
+    # Extract course codes mentioned in context of "already taken"
+    # Look for patterns like "already taken intro to microeconomics"
+    for pattern in taken_patterns:
+        matches = re.finditer(pattern, text_lower)
+        for match in matches:
+            # Extract the course name from the match
+            course_text = match.group(0)
+            # Try to find the course
+            found_courses = search_courses_by_name(course_text, scheduler)
+            taken.extend(found_courses)
+    
+    # Also check for explicit course codes mentioned with "already taken" context
+    # Look for patterns like "already taken 220:102" or "have taken 220:102"
+    taken_context = re.search(
+        r'(?:already|have|took|taken|completed|finished).*?(\d{2,3}:\d{3})',
+        text_lower
+    )
+    if taken_context:
+        course_code = taken_context.group(1)
+        key = f"{course_code.split(':')[0].zfill(3)}:{course_code.split(':')[1]}"
+        if scheduler.get_course(key):
+            taken.append(key)
+    
+    # Parse courses from text and check if they're mentioned in "already taken" context
+    # This is a heuristic: if the sentence contains "already taken" and course names,
+    # extract those courses
+    if any(phrase in text_lower for phrase in ['already taken', 'have taken', 'took', 'completed']):
+        # Find all course mentions in the sentence
+        all_courses = parse_courses(text, scheduler)
+        # If courses are found and "already taken" is in the same sentence/context
+        # (simplified: if "already" appears before the courses in the text)
+        if all_courses:
+            already_idx = text_lower.find('already')
+            if already_idx != -1:
+                # Check if courses appear after "already"
+                for course in all_courses:
+                    course_name = scheduler.get_course(course)
+                    if course_name:
+                        course_title = course_name.get('title', '').lower()
+                        # Check if this course title appears near "already taken"
+                        if course_title in text_lower[already_idx:already_idx+200]:
+                            taken.append(course)
+    
+    return list(set(taken))  # Remove duplicates
+
+
+def wants_list(text: str) -> bool:
+    """Check if user wants a list of courses (not a schedule)"""
+    text_lower = text.lower()
+    list_indicators = [
+        'list', 'show me', 'what are', 'which', 'find me', 
+        'give me a list', 'all the', 'all open'
+    ]
+    return any(indicator in text_lower for indicator in list_indicators)
+
+
 # ============================================
 # MAIN CHAT PROCESSING
 # ============================================
 
 scheduler = None
+last_schedule_result = None
 
 def init_scheduler():
     global scheduler
@@ -1087,7 +1335,7 @@ def init_scheduler():
     return scheduler
 
 
-def process_chat(msg: str, history: List, image=None) -> Tuple[str, str]:
+def process_chat(msg: str, history: List, image=None, taken_courses: List[str] = None) -> Tuple[str, str]:
     global scheduler
     scheduler = init_scheduler()
     
@@ -1096,20 +1344,31 @@ def process_chat(msg: str, history: List, image=None) -> Tuple[str, str]:
     
     msg_lower = msg.lower()
     
-    # Extract info
+    # Get taken courses from parameter (from course history) and merge with message-extracted ones
+    taken_courses = taken_courses or []
     explicit_courses = parse_courses(msg, scheduler)
     prefs = extract_prefs(msg)
     subject = detect_subject(msg)
     core_codes = extract_core_codes(msg)
     
+    # Extract already-taken courses from message
+    already_taken_from_msg = extract_already_taken_courses(msg, scheduler)
+    
+    # Combine all taken courses (from history + from message)
+    already_taken = list(set(taken_courses + already_taken_from_msg))
+    
     # Determine intent
+    wants_list_request = wants_list(msg)
     wants_schedule = any(x in msg_lower for x in [
         'schedule', 'build', 'create', 'give', 'courses', 'recommend', 
         'take', 'plan', 'fill', 'need'
-    ])
+    ]) and not wants_list_request  # Don't treat list requests as schedule requests
     wants_info = any(x in msg_lower for x in ['about', 'info', 'what is', 'tell me about', 'details'])
-    wants_core = any(x in msg_lower for x in ['core', 'sas', 'requirement', 'gen ed', 'general education'])
+    wants_core = any(x in msg_lower for x in ['core', 'sas', 'requirement', 'gen ed', 'general education']) or 'sas classes' in msg_lower
     is_freshman = any(x in msg_lower for x in ['freshman', 'first year', 'first-year', 'new student', 'incoming'])
+    is_sophomore = any(x in msg_lower for x in ['sophomore', 'second year', 'second-year'])
+    # For sophomores and above, allow prerequisites
+    freshman_safe_mode = is_freshman and not is_sophomore
     
     # Extract credit target
     target = TARGET_CREDITS
@@ -1162,9 +1421,58 @@ def process_chat(msg: str, history: List, image=None) -> Tuple[str, str]:
         visual = generate_visual_schedule(result['schedule'], scheduler, title)
         return text_response, visual
     
-    # CASE 3: Specific core code search
+    # CASE 3: List request - show courses by subject or core
+    if wants_list_request and not wants_schedule:
+        # Filter out already-taken courses
+        exclude_courses = set(already_taken)
+        
+        if subject:
+            # User wants a list of courses in a specific subject
+            subject_courses = scheduler.get_courses_by_subject(subject, freshman_safe=freshman_safe_mode)
+            # Filter out already-taken courses
+            subject_courses = [c for c in subject_courses if c not in exclude_courses]
+            
+            subj_name = SUBJECT_CODES.get(subject, subject)
+            lines = [f"# Open {subj_name} Courses\n"]
+            lines.append(f"*Excluding courses you've already taken: {', '.join(already_taken) if already_taken else 'none'}*\n")
+            lines.append("*Sorted by availability*\n")
+            
+            for k in subject_courses[:20]:  # Show up to 20 courses
+                c = scheduler.get_course(k)
+                if c:
+                    open_ct = sum(1 for s in c.get('sections', []) if s and s.get('is_open'))
+                    if open_ct > 0:
+                        prereq_badge = "✓ No Prereq" if not c.get('prerequisites') else "📋 Has Prereq"
+                        core_str = f" | Core: {', '.join(c.get('core_codes', []))}" if c.get('core_codes') else ""
+                        lines.append(f"- **{c.get('title')}** ({k}) - {c.get('credits')}cr, {open_ct} open sections | {prereq_badge}{core_str}")
+            
+            return "\n".join(lines), ""
+        
+        # Check for specific core code search
+        core_match = re.search(r'\b(QR|QQ|NS|HST|SCL|CCD|CCO|AH[opqr]?|WC[rd]?|ITR)\b', msg, re.I)
+        if core_match:
+            code = core_match.group(1).upper()
+            keys = scheduler.get_courses_by_core(code)
+            # Filter out already-taken courses
+            keys = [k for k in keys if k not in exclude_courses]
+            
+            lines = [f"# Courses Satisfying {code} ({SAS_CORE_CODES.get(code, '')})\n"]
+            lines.append(f"*Excluding courses you've already taken: {', '.join(already_taken) if already_taken else 'none'}*\n")
+            lines.append("*Sorted by availability, no-prerequisite courses first*\n")
+            
+            for k in keys[:20]:
+                c = scheduler.get_course(k)
+                if c:
+                    open_ct = sum(1 for s in c.get('sections', []) if s and s.get('is_open'))
+                    if open_ct > 0:
+                        prereq_badge = "✓ No Prereq" if not c.get('prerequisites') else "📋 Has Prereq"
+                        lines.append(f"- **{c.get('title')}** ({k}) - {c.get('credits')}cr, {open_ct} open | {prereq_badge}")
+            
+            return "\n".join(lines), ""
+    
+    # CASE 3b: Specific core code search (non-list)
     core_match = re.search(r'\b(QR|QQ|NS|HST|SCL|CCD|CCO|AH[opqr]?|WC[rd]?|ITR)\b', msg, re.I)
-    if core_match and not wants_schedule:
+    if core_match and not wants_schedule and not wants_list_request:
         code = core_match.group(1).upper()
         keys = scheduler.get_courses_by_core(code)[:15]
         
@@ -1184,20 +1492,75 @@ def process_chat(msg: str, history: List, image=None) -> Tuple[str, str]:
     if wants_schedule or explicit_courses or subject:
         courses_to_schedule = []
         
-        # Add explicit courses
-        courses_to_schedule.extend(explicit_courses)
+        # Get fulfilled core requirements
+        fulfilled_cores = get_fulfilled_core_requirements(already_taken, scheduler)
         
-        # Add subject-specific courses if no explicit courses
-        if subject and not explicit_courses:
-            # Get intro courses without prereqs
-            subject_courses = scheduler.get_courses_by_subject(subject, freshman_safe=is_freshman)
-            courses_to_schedule.extend(subject_courses[:2])
+        # Get courses available based on prerequisites
+        available_by_prereqs = get_available_courses_by_prereqs(already_taken, scheduler)
         
-        # Build schedule
+        # Filter out already-taken courses from explicit requests
+        explicit_courses_filtered = [c for c in explicit_courses if c not in already_taken]
+        if explicit_courses_filtered != explicit_courses:
+            print(f"⚠ Excluding already-taken courses: {set(explicit_courses) - set(explicit_courses_filtered)}")
+        
+        # PRIORITY: Add explicit courses first (user's specific requests)
+        courses_to_schedule.extend(explicit_courses_filtered)
+        
+        # Only add subject-specific courses if NO explicit courses were found
+        # This ensures we respect user's specific requests
+        if subject and not explicit_courses_filtered:
+            # Get courses for the subject, excluding already-taken ones
+            subject_courses = scheduler.get_courses_by_subject(subject, freshman_safe=freshman_safe_mode)
+            subject_courses = [c for c in subject_courses if c not in already_taken]
+            
+            # Prioritize courses user can take based on prerequisites
+            subject_available = [c for c in subject_courses if c in available_by_prereqs]
+            if subject_available:
+                courses_to_schedule.extend(subject_available[:2])
+            else:
+                courses_to_schedule.extend(subject_courses[:2])
+        
+        # Build schedule - if explicit courses provided, DON'T auto-fill
+        # Only auto-fill if user didn't provide specific courses
+        auto_fill_enabled = not bool(explicit_courses_filtered)  # Disable auto-fill if user provided explicit courses
+        
+        if explicit_courses_filtered:
+            print(f"📌 User requested specific courses: {explicit_courses_filtered}")
+            if already_taken:
+                print(f"   Excluded already-taken: {already_taken}")
+            print(f"   Auto-fill disabled to respect user's choices")
+        
         result = scheduler.build_schedule(
             courses_to_schedule, prefs, False, target,
-            freshman_safe=is_freshman
+            freshman_safe=freshman_safe_mode,
+            auto_fill=auto_fill_enabled
         )
+        
+        # Also filter out already-taken courses from auto-added courses
+        if already_taken:
+            result['schedule'] = [
+                s for s in result['schedule'] 
+                if s.get('course_key') not in already_taken
+            ]
+            result['auto_added'] = [
+                c for c in result.get('auto_added', [])
+                if c not in already_taken
+            ]
+        
+        # If user provided explicit courses, make sure they're in the schedule
+        if explicit_courses_filtered:
+            # Verify requested courses are scheduled
+            scheduled_keys = {s.get('course_key') for s in result.get('schedule', [])}
+            missing = [c for c in explicit_courses_filtered if c not in scheduled_keys]
+            if missing:
+                # Try to add missing courses
+                for course_key in missing:
+                    sections = scheduler.get_sections(course_key, open_only=True)
+                    for sec in sections:
+                        if scheduler.can_add_section(sec, result['schedule']):
+                            result['schedule'].append(sec)
+                            result['total_credits'] += scheduler.get_course(course_key).get('credits', 0)
+                            break
         
         # Format response
         subj_name = SUBJECT_CODES.get(subject, '') if subject else ''
@@ -1205,23 +1568,62 @@ def process_chat(msg: str, history: List, image=None) -> Tuple[str, str]:
         
         text_response = f"# 🎓 {title}\n\n"
         
-        # Add freshman safety note
+        # Add context note
         if is_freshman:
             text_response += "**🎒 Freshman Mode:** Only courses with no prerequisites are auto-added.\n\n"
+        elif is_sophomore:
+            text_response += "**📚 Sophomore Mode:** Courses with prerequisites are allowed.\n\n"
         
-        # Add LLM advice
+        # Add note about excluded courses and fulfilled requirements
+        if already_taken:
+            text_response += f"**📚 Your course history:** {', '.join(already_taken)}\n\n"
+            fulfilled_cores = get_fulfilled_core_requirements(already_taken, scheduler)
+            if fulfilled_cores:
+                text_response += f"**✅ Core requirements fulfilled:** {', '.join(sorted(fulfilled_cores))}\n\n"
+        
+        # Add smart recommendations based on prerequisites
+        if already_taken and not explicit_courses_filtered:
+            available_courses = get_available_courses_by_prereqs(already_taken, scheduler)
+            if available_courses and subject:
+                # Filter to subject
+                subject_available = [c for c in available_courses if c.startswith(f"{subject}:")]
+                if subject_available:
+                    text_response += f"**💡 Courses you can take next (prerequisites met):**\n"
+                    for course_key in subject_available[:5]:
+                        course = scheduler.get_course(course_key)
+                        if course:
+                            text_response += f"- **{course.get('title')}** ({course_key})\n"
+                    text_response += "\n"
+        
+        # Add LLM advice with better context
         if HF_CLIENT and result['schedule']:
             course_list = ", ".join([s.get('course_key', '') for s in result['schedule']])
+            context_parts = [
+                f"A Rutgers {('sophomore' if is_sophomore else 'freshman' if is_freshman else 'student')}",
+                f"is taking: {course_list} ({result['total_credits']} credits)."
+            ]
+            if already_taken:
+                context_parts.append(f"They have already taken: {', '.join(already_taken)}.")
+            if subject:
+                context_parts.append(f"They are interested in {SUBJECT_CODES.get(subject, subject)} courses.")
+            if wants_core:
+                context_parts.append("They need SAS core requirements.")
+            
+            context_parts.append("Give brief advice about this schedule (2-3 sentences). Note any good choices.")
+            
             llm_advice = call_llm(
-                f"A Rutgers student is taking: {course_list} ({result['total_credits']} credits). "
-                f"Give brief advice about this schedule (2-3 sentences). Note any good choices.",
-                "You are a friendly Rutgers academic advisor."
+                " ".join(context_parts),
+                "You are a friendly Rutgers academic advisor. Provide helpful, specific advice."
             )
             if llm_advice:
                 text_response += f"💡 {llm_advice}\n\n---\n\n"
         
         text_response += scheduler.format_schedule(result)
         visual = generate_visual_schedule(result['schedule'], scheduler, title)
+        
+        # Store schedule data for API access
+        global last_schedule_result
+        last_schedule_result = result
         
         return text_response, visual
     
@@ -1282,81 +1684,321 @@ All auto-added courses are **prerequisite-free** and safe for freshmen!
 
 
 # ============================================
-# GRADIO UI
+# FLASK WEB UI
 # ============================================
 
-def create_ui():
-    import gradio as gr
+from flask import Flask, render_template, request, jsonify
+
+# ============================================
+# SCHEDULE FORMATTER FOR FRONTEND
+# ============================================
+
+def normalize_day_name(day_code: str) -> Optional[str]:
+    """Convert day codes to full day names for frontend"""
+    if not day_code:
+        return None
     
-    gradio_version = int(gr.__version__.split('.')[0])
-    is_gradio_6 = gradio_version >= 6
+    day_map = {
+        'M': 'Monday', 'MONDAY': 'Monday',
+        'T': 'Tuesday', 'TUESDAY': 'Tuesday',
+        'W': 'Wednesday', 'WEDNESDAY': 'Wednesday',
+        'TH': 'Thursday', 'R': 'Thursday', 'THURSDAY': 'Thursday',
+        'F': 'Friday', 'FRIDAY': 'Friday',
+    }
     
-    with gr.Blocks(title="Rutgers Course Scheduler") as demo:
-        
-        gr.Markdown("# 🎓 Rutgers Smart Scheduler\nPrerequisite-aware scheduling with SAS Core support")
-        
-        with gr.Row():
-            with gr.Column(scale=2):
-                msg = gr.Textbox(
-                    placeholder="Try: 'Fill my SAS core as a freshman' or 'CS major no Friday'",
-                    lines=2, label="What do you need?"
-                )
-                with gr.Row():
-                    send_btn = gr.Button("🚀 Build Schedule", variant="primary", scale=2)
-                    clear_btn = gr.Button("Clear", scale=1)
-        
-        with gr.Row():
-            gr.Button("📚 Fill SAS Core").click(lambda: "Fill my SAS core requirements as a freshman", outputs=[msg])
-            gr.Button("💻 CS Freshman").click(lambda: "Computer science freshman, give me courses", outputs=[msg])
-            gr.Button("🔬 Science Core").click(lambda: "Find courses that satisfy NS requirement", outputs=[msg])
-            gr.Button("✍️ Writing Req").click(lambda: "What satisfies the writing requirement WCd?", outputs=[msg])
-        
-        visual_output = gr.HTML(
-            value="""<div style='padding:80px; text-align:center; color:#6c757d; 
-                     background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius:20px;'>
-                     <div style='font-size:72px;'>📅</div>
-                     <div style='font-size:24px; font-weight:600;'>Your Visual Schedule</div>
-                     <div style='font-size:14px; margin-top:12px;'>All auto-added courses have NO prerequisites</div>
-                </div>""",
-            label=""
-        )
-        
-        gr.Markdown("---")
-        chatbot = gr.Chatbot(height=300, label="Schedule Details & Advice")
-        
-        def respond(message, history):
-            if not message:
-                return history, "", "<div style='padding:60px; text-align:center;'>Enter a request</div>"
-            
-            text_resp, visual = process_chat(message, history)
-            history = history or []
-            
-            if is_gradio_6:
-                history.append({"role": "user", "content": message})
-                history.append({"role": "assistant", "content": text_resp})
-            else:
-                history.append((message, text_resp))
-            
-            if not visual:
-                visual = "<div style='padding:60px; text-align:center;'>No visual schedule</div>"
-            
-            return history, "", visual
-        
-        send_btn.click(respond, [msg, chatbot], [chatbot, msg, visual_output])
-        msg.submit(respond, [msg, chatbot], [chatbot, msg, visual_output])
-        clear_btn.click(lambda: ([], "", "<div style='padding:60px; text-align:center;'>📅</div>"),
-                       outputs=[chatbot, msg, visual_output])
+    d = day_code.strip().upper()
+    if d in day_map:
+        return day_map[d]
     
-    return demo
+    # Try partial match
+    for code, full in day_map.items():
+        if d.startswith(code) or code.startswith(d):
+            return full
+    
+    return None
+
+
+def format_schedule_for_frontend(schedule: List[Dict], scheduler) -> Dict[str, Any]:
+    """
+    Convert schedule data to frontend-friendly JSON format.
+    
+    Returns:
+        {
+            "schedule": [
+                {
+                    "course_key": "198:111",
+                    "course_title": "Introduction to Computer Science",
+                    "credits": 4,
+                    "is_open": true,
+                    "meetings": [
+                        {
+                            "day": "Monday",
+                            "start_time": "10:20 AM",
+                            "end_time": "11:40 AM",
+                            "start_time_24h": "10:20",
+                            "end_time_24h": "11:40",
+                            "campus": "BUS",
+                            "campus_abbrev": "BUS",
+                            "building": "ARC",
+                            "room": "101"
+                        }
+                    ]
+                }
+            ]
+        }
+    """
+    formatted_schedule = []
+    
+    for section in schedule:
+        if not section:
+            continue
+        
+        course_key = section.get('course_key', '')
+        course = scheduler.get_course(course_key) if scheduler else None
+        
+        formatted_section = {
+            'course_key': course_key,
+            'course_title': course.get('title', course_key) if course else course_key,
+            'credits': course.get('credits', 0) if course else 0,
+            'is_open': section.get('is_open', True),
+            'meetings': []
+        }
+        
+        # Add section number if available
+        if section.get('section_number'):
+            formatted_section['section_number'] = section.get('section_number')
+        
+        # Format meetings
+        for meeting in section.get('meetings', []):
+            if not meeting:
+                continue
+            
+            # Normalize day to full day name
+            raw_day = meeting.get('day', '')
+            day_full = normalize_day_name(raw_day)
+            
+            formatted_meeting = {
+                'day': day_full or raw_day,  # Use normalized day or fallback to raw
+                'start_time': meeting.get('start_time', ''),
+                'end_time': meeting.get('end_time', ''),
+            }
+            
+            # Add 24h format if available
+            if meeting.get('start_time_24h'):
+                formatted_meeting['start_time_24h'] = meeting.get('start_time_24h')
+            if meeting.get('end_time_24h'):
+                formatted_meeting['end_time_24h'] = meeting.get('end_time_24h')
+            
+            # Campus info
+            campus = meeting.get('campus_abbrev') or meeting.get('campus') or ''
+            formatted_meeting['campus'] = campus
+            formatted_meeting['campus_abbrev'] = campus
+            
+            # Building and room
+            if meeting.get('building'):
+                formatted_meeting['building'] = meeting.get('building')
+            if meeting.get('room'):
+                formatted_meeting['room'] = meeting.get('room')
+            
+            # Combine building and room if both exist
+            if meeting.get('building') and meeting.get('room'):
+                formatted_meeting['building'] = f"{meeting.get('building')}-{meeting.get('room')}"
+            
+            formatted_section['meetings'].append(formatted_meeting)
+        
+        if formatted_section['meetings']:
+            formatted_schedule.append(formatted_section)
+    
+    return {
+        'schedule': formatted_schedule
+    }
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    """Serve the main page"""
+    return render_template('index.html')
+
+# Course history storage (in-memory, could be moved to database/file)
+user_course_history = {}  # session_id -> list of course codes
+
+def get_user_course_history(session_id: str = 'default') -> List[str]:
+    """Get course history for a user"""
+    return user_course_history.get(session_id, [])
+
+def set_user_course_history(session_id: str, courses: List[str]):
+    """Set course history for a user"""
+    user_course_history[session_id] = courses
+
+def get_fulfilled_core_requirements(taken_courses: List[str], scheduler) -> Set[str]:
+    """Get core requirements fulfilled by taken courses"""
+    fulfilled = set()
+    for course_key in taken_courses:
+        course = scheduler.get_course(course_key)
+        if course and course.get('core_codes'):
+            fulfilled.update(course['core_codes'])
+    return fulfilled
+
+def get_available_courses_by_prereqs(taken_courses: List[str], scheduler) -> List[str]:
+    """Get courses that user can now take based on prerequisites"""
+    available = []
+    taken_set = set(taken_courses)
+    
+    # Normalize taken courses to standard format (e.g., "220:102")
+    normalized_taken = set()
+    for course in taken_courses:
+        parts = course.split(':')
+        if len(parts) == 2:
+            normalized_taken.add(f"{parts[0].zfill(3)}:{parts[1]}")
+        normalized_taken.add(course)
+    
+    for course_key, course in scheduler.data.get('courses', {}).items():
+        prereq_text = course.get('prerequisites', '').strip()
+        
+        # Check if course has open sections first
+        open_ct = sum(1 for s in course.get('sections', []) if s and s.get('is_open'))
+        if open_ct == 0:
+            continue  # Skip courses with no open sections
+        
+        if not prereq_text:
+            # No prerequisites, always available
+            available.append(course_key)
+            continue
+        
+        # Extract course codes from prerequisite text
+        prereq_codes = re.findall(r'(\d{2,3}):(\d{3})', prereq_text)
+        if prereq_codes:
+            # Normalize prerequisite codes
+            normalized_prereqs = [f"{p[0].zfill(3)}:{p[1]}" for p in prereq_codes]
+            
+            # Check if all prerequisites are met
+            prereqs_met = all(
+                any(norm_prereq in normalized_taken or norm_prereq == taken 
+                    for taken in taken_set)
+                for norm_prereq in normalized_prereqs
+            )
+            
+            if prereqs_met:
+                available.append(course_key)
+    
+    return available
+
+@app.route('/api/course-history', methods=['POST', 'GET'])
+def course_history_api():
+    """Handle course history storage and retrieval"""
+    global user_course_history
+    try:
+        if request.method == 'POST':
+            data = request.get_json()
+            courses = data.get('courses', [])
+            session_id = request.headers.get('X-Session-ID', 'default')
+            
+            # Validate course codes
+            valid_courses = []
+            for code in courses:
+                if re.match(r'^\d{2,3}:\d{3}$', code):
+                    valid_courses.append(code)
+            
+            set_user_course_history(session_id, valid_courses)
+            
+            return jsonify({
+                'success': True,
+                'courses': valid_courses,
+                'count': len(valid_courses)
+            })
+        
+        elif request.method == 'GET':
+            session_id = request.headers.get('X-Session-ID', 'default')
+            courses = get_user_course_history(session_id)
+            return jsonify({
+                'success': True,
+                'courses': courses,
+                'count': len(courses)
+            })
+    
+    except Exception as e:
+        print(f"Error in course history API: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/chat', methods=['POST'])
+def chat_api():
+    """Handle chat messages and return response"""
+    global last_schedule_result, scheduler
+    try:
+        data = request.get_json()
+        message = data.get('message', '').strip()
+        session_id = request.headers.get('X-Session-ID', 'default')
+        
+        if not message:
+            return jsonify({
+                'text_response': 'Please enter a message.',
+                'schedule_data': None
+            })
+        
+        # Get user's course history
+        taken_courses = get_user_course_history(session_id)
+        
+        # Reset schedule result
+        last_schedule_result = None
+        
+        # Process the chat message (pass taken courses)
+        text_response, visual_html = process_chat(message, [], taken_courses=taken_courses)
+        
+        # Extract schedule data if available
+        schedule_data = None
+        if last_schedule_result and last_schedule_result.get('schedule'):
+            schedule_data = format_schedule_for_frontend(
+                last_schedule_result['schedule'], 
+                scheduler
+            )
+        
+        return jsonify({
+            'text_response': text_response,
+            'schedule_data': schedule_data
+        })
+    
+    except Exception as e:
+        print(f"Error in chat API: {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            'text_response': f'Sorry, an error occurred: {str(e)}',
+            'schedule_data': None
+        }), 500
 
 
 if __name__ == "__main__":
-    import gradio as gr
+    import socket
+    
     print("=" * 60)
     print("🎓 Rutgers Smart Scheduler")
     print("   - Prerequisite checking enabled")
     print("   - SAS Core support")
+    print("   - Custom Web UI")
     print("=" * 60)
     init_scheduler()
-    print("\n🌐 Starting at http://localhost:7860\n")
-    create_ui().launch(server_name="0.0.0.0", server_port=7860)
+    
+    # Find available port
+    def find_free_port(start_port=7860, max_attempts=10):
+        for i in range(max_attempts):
+            port = start_port + i
+            try:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.bind(('0.0.0.0', port))
+                    return port
+            except OSError:
+                continue
+        return start_port  # Fallback to original
+    
+    port = find_free_port(7860)
+    if port != 7860:
+        print(f"\n⚠ Port 7860 is in use. Using port {port} instead.")
+    
+    print(f"\n🌐 Starting web server at http://localhost:{port}\n")
+    print("   Open your browser to view the scheduler!\n")
+    
+    app.run(host='0.0.0.0', port=port, debug=False)

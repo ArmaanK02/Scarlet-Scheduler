@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutgers Course Scheduler</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎓 Rutgers Course Scheduler</h1>
+            <p class="subtitle">Smart scheduling with prerequisite checking</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Course History Section -->
+            <div class="course-history-section">
+                <div class="course-history-header">
+                    <h2>📚 My Course History</h2>
+                    <button id="toggleHistory" class="toggle-button">Show</button>
+                </div>
+                <div id="courseHistoryPanel" class="course-history-panel" style="display: none;">
+                    <p class="help-text">Enter course codes you've already taken (e.g., 220:102, 198:111). This helps me recommend courses based on prerequisites and requirements.</p>
+                    <div class="course-input-container">
+                        <textarea id="courseHistoryInput" class="course-history-input" 
+                                  placeholder="Enter course codes separated by commas or new lines:&#10;220:102&#10;220:103&#10;198:111"></textarea>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="saveHistory" class="save-button">Save Course History</button>
+                            <button id="clearHistory" class="clear-button">Clear</button>
+                        </div>
+                    </div>
+                    <div id="historyStatus" class="history-status"></div>
+                </div>
+            </div>
+            
+            <!-- Content Row -->
+            <div class="content-row">
+                <!-- Chat Section -->
+                <div class="chat-section">
+                <div class="chat-header">
+                    <h2>Chat</h2>
+                </div>
+                <div id="chatLog" class="chat-log">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            <p>Welcome! I can help you build your course schedule. Try:</p>
+                            <ul>
+                                <li>"I'm a CS freshman, give me courses"</li>
+                                <li>"Fill my SAS core requirements"</li>
+                                <li>"Tell me about 198:111"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Ask me anything about courses..." autocomplete="off">
+                    <button id="sendButton" class="send-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Schedule Section -->
+            <div class="schedule-section">
+                <div class="schedule-header">
+                    <h2>Schedule</h2>
+                    <div class="campus-legend" id="campusLegend"></div>
+                </div>
+                <div id="scheduleVisualizer" class="schedule-visualizer">
+                    <div class="empty-schedule">
+                        <div class="empty-icon">📅</div>
+                        <p>No schedule yet. Ask me to build one!</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
+
