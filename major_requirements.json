@@ -1,0 +1,3399 @@
+{
+  "majors": {
+    "MAJOR PROGRAMS OF STUDY": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Brunswick. The following list summarizes the major programs available at one or more of the schools. Students": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "should consult the individual schools' sections for a list of majors offered at each school.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "In addition, academic departments offer numerous options and specialized programs of study within these general": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "fields, as well as opportunities for interdisciplinary work. Several dual-degree programs also are available, and in": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "some subjects both liberal arts and professional programs are offered. Thus, the list of majors merely serves to": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "suggest the breadth of academic programs for undergraduate students.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Accounting": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Actuarial Mathematics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Aerospace Engineering": {
+      "school": "SAS",
+      "requirements": [
+        "650:460",
+        "650:350",
+        "650:455",
+        "650:462",
+        "540:343",
+        "650:461",
+        "650:488",
+        "650:463",
+        "650:361",
+        "650:388",
+        "640:251",
+        "640:421",
+        "650:447",
+        "650:439",
+        "650:605",
+        "440:222",
+        "650:471",
+        "650:431",
+        "650:210",
+        "650:291",
+        "650:481",
+        "650:451",
+        "650:449",
+        "650:465",
+        "650:474"
+      ]
+    },
+    "African, Middle Eastern, and South Asian Languages and Literatures": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Africana Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Agriculture and Food Systems": {
+      "school": "SAS",
+      "requirements": [
+        "020:215",
+        "220:103",
+        "573:445",
+        "370:350",
+        "373:101",
+        "216:351",
+        "640:111",
+        "375:360",
+        "020:305",
+        "220:102",
+        "400:201",
+        "709:201",
+        "460:100",
+        "920:101",
+        "373:122",
+        "400:103",
+        "400:106",
+        "709:255",
+        "216:272",
+        "216:422",
+        "776:211",
+        "375:453",
+        "020:490",
+        "554:488",
+        "067:142"
+      ]
+    },
+    "American Studies": {
+      "school": "SAS",
+      "requirements": [
+        "050:310",
+        "050:389",
+        "050:245",
+        "050:102"
+      ]
+    },
+    "Animal Science": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Anthropology, Cultural": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Anthropology, Evolutionary": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Applied Sciences in Engineering": {
+      "school": "SAS",
+      "requirements": [
+        "640:251",
+        "640:244",
+        "750:227",
+        "750:228",
+        "220:102",
+        "750:230",
+        "750:229"
+      ]
+    },
+    "Art History": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Asian Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Astrophysics": {
+      "school": "SAS",
+      "requirements": [
+        "105:343",
+        "750:341",
+        "750:441",
+        "750:443",
+        "750:344",
+        "750:444",
+        "750:361",
+        "750:381",
+        "750:343",
+        "750:442"
+      ]
+    },
+    "Biochemistry": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Biological Sciences": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Biomathematics": {
+      "school": "SAS",
+      "requirements": [
+        "160:305",
+        "146:445",
+        "146:474",
+        "119:115",
+        "146:245",
+        "640:373",
+        "216:351",
+        "694:301",
+        "640:477",
+        "160:306",
+        "185:350",
+        "146:302",
+        "125:407",
+        "447:384",
+        "146:475",
+        "146:356",
+        "125:303",
+        "160:161",
+        "216:431",
+        "146:357",
+        "694:408",
+        "447:480",
+        "704:486",
+        "215:513",
+        "640:151"
+      ]
+    },
+    "Biomedical Engineering": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Biotechnology": {
+      "school": "SAS",
+      "requirements": [
+        "355:101",
+        "119:115",
+        "160:161",
+        "160:162",
+        "119:116",
+        "119:117"
+      ]
+    },
+    "Business Analytics and Information Technology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Cell Biology and Neuroscience": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Chemical Engineering": {
+      "school": "SAS",
+      "requirements": [
+        "155:298",
+        "640:251",
+        "155:208",
+        "160:307",
+        "155:201",
+        "640:244",
+        "750:227",
+        "540:343",
+        "155:210",
+        "750:229"
+      ]
+    },
+    "Chemistry": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Chinese": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Cinema Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Civil Engineering": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Classics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Cognitive Science": {
+      "school": "SAS",
+      "requirements": [
+        "185:201",
+        "185:417",
+        "185:345",
+        "185:340",
+        "185:420",
+        "185:253",
+        "185:330",
+        "185:360",
+        "185:414",
+        "185:411",
+        "185:412",
+        "185:401",
+        "185:413",
+        "185:430",
+        "185:301",
+        "185:416",
+        "185:320",
+        "185:415",
+        "185:325",
+        "185:310",
+        "185:495",
+        "185:335",
+        "185:395",
+        "185:350"
+      ]
+    },
+    "Communication": {
+      "school": "SAS",
+      "requirements": [
+        "447:415",
+        "447:315",
+        "447:384",
+        "447:460",
+        "447:409",
+        "447:380",
+        "447:408",
+        "447:430",
+        "447:302",
+        "447:414",
+        "447:451"
+      ]
+    },
+    "Comparative Literature": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Computer Science": {
+      "school": "SAS",
+      "requirements": [
+        "220:103",
+        "640:491",
+        "220:322",
+        "198:111",
+        "640:486",
+        "010:272",
+        "640:373",
+        "640:477",
+        "220:102",
+        "220:320",
+        "198:107",
+        "640:311",
+        "220:321",
+        "640:151",
+        "640:354",
+        "640:338",
+        "640:350",
+        "640:321",
+        "640:485",
+        "640:481",
+        "640:285",
+        "640:291",
+        "640:487",
+        "640:250",
+        "640:478"
+      ]
+    },
+    "Criminal Justice": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Dance": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Design": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Digital Filmmaking": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Ecology, Evolution, and Natural Resources": {
+      "school": "SAS",
+      "requirements": [
+        "750:203",
+        "750:206",
+        "750:204",
+        "119:115",
+        "216:440",
+        "160:161",
+        "160:162",
+        "750:193",
+        "119:116",
+        "750:205",
+        "160:171",
+        "750:194",
+        "119:117"
+      ]
+    },
+    "Economics": {
+      "school": "SAS",
+      "requirements": [
+        "220:322",
+        "960:285",
+        "640:135",
+        "220:200",
+        "960:211",
+        "220:102"
+      ]
+    },
+    "Electrical and Computer Engineering": {
+      "school": "SAS",
+      "requirements": [
+        "332:366",
+        "332:434",
+        "540:343",
+        "332:221",
+        "332:449",
+        "332:231",
+        "332:351",
+        "640:251",
+        "332:331",
+        "332:252",
+        "332:368",
+        "332:222",
+        "332:348",
+        "332:361",
+        "332:452",
+        "332:393",
+        "332:345",
+        "332:333",
+        "332:226",
+        "332:312",
+        "332:363",
+        "640:244",
+        "332:224",
+        "750:227",
+        "332:223"
+      ]
+    },
+    "English": {
+      "school": "SAS",
+      "requirements": [
+        "694:301"
+      ]
+    },
+    "Entomology": {
+      "school": "SAS",
+      "requirements": [
+        "370:406",
+        "119:115",
+        "216:369",
+        "370:350",
+        "776:408",
+        "373:101",
+        "216:351",
+        "550:371",
+        "370:404",
+        "370:352",
+        "730:103",
+        "640:135",
+        "902:300",
+        "160:161",
+        "070:102",
+        "370:414",
+        "370:415",
+        "370:380",
+        "370:495",
+        "373:362",
+        "372:202",
+        "370:407",
+        "355:103",
+        "015:497",
+        "190:101"
+      ]
+    },
+    "Environmental and Business Economics": {
+      "school": "SAS",
+      "requirements": [
+        "220:415",
+        "220:322",
+        "790:327",
+        "010:272",
+        "373:403",
+        "373:241",
+        "220:300",
+        "373:404",
+        "373:352",
+        "373:215",
+        "373:218",
+        "373:371",
+        "374:314",
+        "373:362",
+        "373:211",
+        "373:200",
+        "373:402",
+        "373:323",
+        "373:351",
+        "355:101",
+        "960:285",
+        "373:210",
+        "220:301",
+        "960:211",
+        "373:335"
+      ]
+    },
+    "Environmental Engineering": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Environmental Planning": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Environmental Policy, Institutions, and Behavior": {
+      "school": "SAS",
+      "requirements": [
+        "374:312",
+        "374:325",
+        "374:110",
+        "374:430",
+        "374:483",
+        "374:460",
+        "374:299",
+        "374:490",
+        "374:322",
+        "374:314",
+        "762:205",
+        "374:436",
+        "640:026",
+        "374:335",
+        "374:311",
+        "374:433",
+        "355:101",
+        "374:428",
+        "374:399",
+        "374:426",
+        "374:240",
+        "960:211",
+        "374:481",
+        "374:141",
+        "374:201"
+      ]
+    },
+    "Environmental Sciences": {
+      "school": "SAS",
+      "requirements": [
+        "119:115",
+        "375:407",
+        "375:303",
+        "119:103",
+        "216:351",
+        "375:360",
+        "375:322",
+        "374:460",
+        "680:201",
+        "375:421",
+        "375:450",
+        "375:201",
+        "375:302",
+        "375:310",
+        "680:390",
+        "375:346",
+        "160:161",
+        "375:453",
+        "375:434",
+        "375:307",
+        "832:335",
+        "375:444",
+        "375:424",
+        "160:307",
+        "375:340"
+      ]
+    },
+    "Environmental Studies (available as a second major only)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "European Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Exercise Science": {
+      "school": "SAS",
+      "requirements": [
+        "355:101"
+      ]
+    },
+    "Finance": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Food Science": {
+      "school": "SAS",
+      "requirements": [
+        "373:211",
+        "373:200",
+        "373:422",
+        "355:101",
+        "960:285",
+        "373:210",
+        "010:272",
+        "960:211",
+        "373:241",
+        "373:215",
+        "198:170",
+        "373:201",
+        "373:321"
+      ]
+    },
+    "French": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Genetics": {
+      "school": "SAS",
+      "requirements": [
+        "694:215",
+        "447:245",
+        "119:115",
+        "447:216",
+        "447:302",
+        "447:203",
+        "119:116"
+      ]
+    },
+    "Geography": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Geological Sciences": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "German": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Global Humanities": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Health Administration": {
+      "school": "SAS",
+      "requirements": [
+        "501:420",
+        "501:395",
+        "010:272",
+        "775:499",
+        "501:333",
+        "355:315",
+        "501:332",
+        "355:303",
+        "501:203",
+        "501:260",
+        "775:300",
+        "501:310",
+        "775:395",
+        "501:425",
+        "355:101",
+        "501:410",
+        "501:335",
+        "501:356",
+        "355:302",
+        "501:363",
+        "775:205",
+        "775:450",
+        "501:354",
+        "501:207"
+      ]
+    },
+    "History": {
+      "school": "SAS",
+      "requirements": [
+        "510:370",
+        "563:360",
+        "563:497",
+        "563:464"
+      ]
+    },
+    "History/French": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "History/Political Science": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Human Resource Management": {
+      "school": "SAS",
+      "requirements": [
+        "533:313",
+        "533:311",
+        "533:312",
+        "533:301"
+      ]
+    },
+    "Industrial Engineering": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Information Technology and Informatics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Italian": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Italian Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Jewish Studies": {
+      "school": "SAS",
+      "requirements": [
+        "563:202",
+        "563:464",
+        "563:201"
+      ]
+    },
+    "Journalism and Media Studies": {
+      "school": "SAS",
+      "requirements": [
+        "189:101",
+        "189:102",
+        "567:201",
+        "189:103",
+        "567:200",
+        "567:274"
+      ]
+    },
+    "Korean": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Labor and Employment Relations": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Labor Studies and Employment Relations": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Landscape Architecture": {
+      "school": "SAS",
+      "requirements": [
+        "550:232",
+        "550:331",
+        "640:139",
+        "119:103",
+        "640:111",
+        "550:340",
+        "550:133",
+        "640:112",
+        "550:347",
+        "460:100",
+        "640:115",
+        "573:231",
+        "550:233",
+        "550:499",
+        "550:332",
+        "550:441",
+        "640:135",
+        "640:151",
+        "550:241",
+        "216:332",
+        "550:341",
+        "355:101",
+        "216:101",
+        "550:431",
+        "550:231"
+      ]
+    },
+    "Latin American Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Latino and Caribbean Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Linguistics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Management and Global Business": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Marine Sciences": {
+      "school": "SAS",
+      "requirements": [
+        "628:451",
+        "628:410",
+        "776:400",
+        "216:240",
+        "119:115",
+        "628:340",
+        "628:363",
+        "694:301",
+        "694:313",
+        "216:351",
+        "115:313",
+        "628:201",
+        "216:360",
+        "115:301",
+        "680:390",
+        "640:135",
+        "146:356",
+        "680:481",
+        "160:161",
+        "216:324",
+        "146:357",
+        "628:309",
+        "628:341",
+        "119:117",
+        "628:120"
+      ]
+    },
+    "Marketing": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Materials Science and Engineering": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Mathematics": {
+      "school": "SAS",
+      "requirements": [
+        "220:103",
+        "640:491",
+        "220:322",
+        "198:111",
+        "640:486",
+        "010:272",
+        "640:373",
+        "640:477",
+        "220:102",
+        "220:421",
+        "220:320",
+        "198:107",
+        "640:311",
+        "220:321",
+        "640:151",
+        "640:354",
+        "640:338",
+        "640:350",
+        "640:321",
+        "640:485",
+        "640:481",
+        "640:285",
+        "640:291",
+        "640:487",
+        "640:250"
+      ]
+    },
+    "Mechanical Engineering": {
+      "school": "SAS",
+      "requirements": [
+        "650:460",
+        "650:350",
+        "650:455",
+        "650:462",
+        "650:467",
+        "540:343",
+        "650:461",
+        "650:432",
+        "750:230",
+        "650:463",
+        "635:407",
+        "650:361",
+        "650:388",
+        "640:251",
+        "640:421",
+        "650:468",
+        "650:447",
+        "650:439",
+        "650:289",
+        "440:222",
+        "650:459",
+        "650:471",
+        "650:431",
+        "650:481",
+        "650:291"
+      ]
+    },
+    "Medieval Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Meteorology": {
+      "school": "SAS",
+      "requirements": [
+        "628:451",
+        "670:334",
+        "375:303",
+        "670:461",
+        "670:431",
+        "670:323",
+        "960:379",
+        "670:453",
+        "670:434",
+        "670:324",
+        "355:301",
+        "760:205",
+        "554:487",
+        "640:251",
+        "375:346",
+        "160:161",
+        "355:201",
+        "670:102",
+        "670:493",
+        "670:212",
+        "750:205",
+        "670:433",
+        "640:151",
+        "670:211",
+        "554:397"
+      ]
+    },
+    "Microbiology": {
+      "school": "SAS",
+      "requirements": [
+        "160:161",
+        "119:115",
+        "119:101"
+      ]
+    },
+    "Middle Eastern Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Molecular Biology and Biochemistry": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Music": {
+      "school": "SAS",
+      "requirements": [
+        "700:223",
+        "700:301",
+        "701:407",
+        "701:201",
+        "700:121",
+        "700:221",
+        "700:253",
+        "700:329",
+        "700:123",
+        "700:153",
+        "700:419",
+        "700:203",
+        "701:358",
+        "701:357",
+        "700:127"
+      ]
+    },
+    "Nursing": {
+      "school": "SAS",
+      "requirements": [
+        "705:306",
+        "705:205",
+        "705:351",
+        "705:412",
+        "705:455",
+        "705:335",
+        "705:326",
+        "705:350",
+        "705:427",
+        "705:201",
+        "705:336",
+        "705:428",
+        "705:325",
+        "705:414",
+        "705:340",
+        "705:418"
+      ]
+    },
+    "Nutritional Sciences": {
+      "school": "SAS",
+      "requirements": [
+        "709:448",
+        "709:485",
+        "709:102",
+        "119:103",
+        "694:301",
+        "709:201",
+        "709:202",
+        "709:401",
+        "709:255",
+        "115:301",
+        "146:356",
+        "160:161",
+        "709:400",
+        "709:489",
+        "709:484",
+        "709:493",
+        "709:404",
+        "160:307",
+        "355:101",
+        "119:127",
+        "119:128",
+        "709:481",
+        "709:483",
+        "709:345",
+        "709:301"
+      ]
+    },
+    "Pharmacy": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Philosophy": {
+      "school": "SAS",
+      "requirements": [
+        "220:103",
+        "220:432",
+        "220:322",
+        "220:320",
+        "220:331",
+        "220:417",
+        "220:120",
+        "220:402",
+        "220:390",
+        "220:102",
+        "220:327"
+      ]
+    },
+    "Physics": {
+      "school": "SAS",
+      "requirements": [
+        "105:343",
+        "750:341",
+        "750:441",
+        "750:443",
+        "750:344",
+        "750:444",
+        "750:361",
+        "750:381",
+        "750:343",
+        "750:442"
+      ]
+    },
+    "Planning and Public Policy": {
+      "school": "SAS",
+      "requirements": [
+        "355:303",
+        "220:103",
+        "355:302",
+        "790:104",
+        "355:101",
+        "775:300",
+        "833:210",
+        "762:499",
+        "971:201",
+        "775:205",
+        "775:101",
+        "775:395",
+        "220:102",
+        "355:315",
+        "762:400",
+        "762:497"
+      ]
+    },
+    "Plant Biology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Political Science": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Portuguese": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Psychology": {
+      "school": "SAS",
+      "requirements": [
+        "830:432",
+        "830:490",
+        "830:382",
+        "830:380",
+        "830:123",
+        "830:101",
+        "830:388",
+        "830:361",
+        "830:497",
+        "830:271",
+        "830:484",
+        "830:394",
+        "830:333",
+        "830:331",
+        "830:346",
+        "830:335"
+      ]
+    },
+    "Public Health": {
+      "school": "SAS",
+      "requirements": [
+        "160:128",
+        "832:212",
+        "160:127",
+        "775:499",
+        "355:303",
+        "775:300",
+        "832:201",
+        "160:161",
+        "775:395",
+        "832:335",
+        "335:315",
+        "355:101",
+        "335:302",
+        "832:497",
+        "832:240",
+        "832:356",
+        "775:205",
+        "832:339",
+        "775:450"
+      ]
+    },
+    "Public Policy": {
+      "school": "SAS",
+      "requirements": [
+        "355:303",
+        "220:103",
+        "355:302",
+        "790:104",
+        "355:101",
+        "775:300",
+        "833:210",
+        "762:499",
+        "971:201",
+        "775:205",
+        "775:101",
+        "775:395",
+        "220:102",
+        "355:315",
+        "762:400",
+        "762:497"
+      ]
+    },
+    "Religion": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Russian": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Social Work": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Sociology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Spanish": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Sport Management": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Statistics and Biostatistics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Statistics/Mathematics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Supply Chain Management": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Theater Arts": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Urban Planning and Design": {
+      "school": "SAS",
+      "requirements": [
+        "971:318",
+        "971:395",
+        "971:316",
+        "355:101",
+        "971:202",
+        "971:314",
+        "971:403",
+        "971:315",
+        "971:404",
+        "971:201",
+        "971:250",
+        "775:205",
+        "971:463",
+        "971:405",
+        "975:101"
+      ]
+    },
+    "Visual Arts": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Women's, Gender, and Sexuality Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "MINOR PROGRAMS OF STUDY": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "The minors listed below are offered by various disciplines and interdisciplinary programs at one or more of the": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "schools. Students should consult the individual schools' sections of this catalog for a list of the minors open to": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "students at each school.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "African Area Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "African, Middle Eastern, and South Asian Languages and Literature": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Agroecology": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Arabic": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Archaeology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Architectural Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Art": {
+      "school": "MGSA",
+      "requirements": [
+        "014:490",
+        "014:140",
+        "014:103",
+        "014:495",
+        "014:233",
+        "014:130",
+        "014:132",
+        "014:497",
+        "014:107",
+        "014:203",
+        "014:101"
+      ]
+    },
+    "Astrobiology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Astronomy": {
+      "school": "SAS",
+      "requirements": [
+        "105:343",
+        "750:497",
+        "750:341",
+        "750:203",
+        "750:442",
+        "750:441",
+        "750:344",
+        "750:361",
+        "750:343",
+        "750:205"
+      ]
+    },
+    "Business Administration": {
+      "school": "RBS",
+      "requirements": []
+    },
+    "Business and Technical Writing": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Classical Humanities": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Community Health Outreach": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Comparative and Critical Race and Ethnic Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Creative Writing": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Criminology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Critical Intelligence Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Culinary Nutrition": {
+      "school": "SEBS",
+      "requirements": []
+    }
+  },
+  "minors": {
+    "MINOR PROGRAMS OF STUDY": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "The minors listed below are offered by various disciplines and interdisciplinary programs at one or more of the": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "schools. Students should consult the individual schools' sections of this catalog for a list of the minors open to": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "students at each school.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "African Area Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "African, Middle Eastern, and South Asian Languages and Literature": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Africana Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Agriculture and Food Systems": {
+      "school": "SEBS",
+      "requirements": [
+        "020:215",
+        "220:103",
+        "573:445",
+        "370:350",
+        "373:101",
+        "216:351",
+        "640:111",
+        "375:360",
+        "020:305",
+        "220:102",
+        "400:201",
+        "709:201",
+        "460:100",
+        "920:101",
+        "373:122",
+        "400:103",
+        "400:106",
+        "709:255",
+        "216:272",
+        "216:422",
+        "776:211",
+        "375:453",
+        "020:490",
+        "554:488",
+        "067:142"
+      ]
+    },
+    "Agroecology": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "American Studies": {
+      "school": "SAS",
+      "requirements": [
+        "050:310",
+        "050:389",
+        "050:245",
+        "050:102"
+      ]
+    },
+    "Animal Science": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Anthropology, Cultural": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Anthropology, Evolutionary": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Arabic": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Archaeology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Architectural Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Art": {
+      "school": "MGSA",
+      "requirements": [
+        "014:490",
+        "014:140",
+        "014:103",
+        "014:495",
+        "014:233",
+        "014:130",
+        "014:132",
+        "014:497",
+        "014:107",
+        "014:203",
+        "014:101"
+      ]
+    },
+    "Art History": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Asian Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Astrobiology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Astronomy": {
+      "school": "SAS",
+      "requirements": [
+        "105:343",
+        "750:497",
+        "750:341",
+        "750:203",
+        "750:442",
+        "750:441",
+        "750:344",
+        "750:361",
+        "750:343",
+        "750:205"
+      ]
+    },
+    "Biochemistry": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Biological Sciences": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Business Administration": {
+      "school": "RBS",
+      "requirements": []
+    },
+    "Business and Technical Writing": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Chemistry": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Chinese": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Cinema Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Classical Humanities": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Cognitive Science": {
+      "school": "SAS",
+      "requirements": [
+        "185:201",
+        "185:417",
+        "185:345",
+        "185:340",
+        "185:420",
+        "185:253",
+        "185:330",
+        "185:360",
+        "185:414",
+        "185:411",
+        "185:412",
+        "185:401",
+        "185:413",
+        "185:430",
+        "185:301",
+        "185:416",
+        "185:320",
+        "185:415",
+        "185:325",
+        "185:310",
+        "185:495",
+        "185:335",
+        "185:395",
+        "185:350"
+      ]
+    },
+    "Community Health Outreach": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Comparative and Critical Race and Ethnic Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Comparative Literature": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Computer Science": {
+      "school": "SAS",
+      "requirements": [
+        "220:103",
+        "640:491",
+        "220:322",
+        "198:111",
+        "640:486",
+        "010:272",
+        "640:373",
+        "640:477",
+        "220:102",
+        "220:320",
+        "198:107",
+        "640:311",
+        "220:321",
+        "640:151",
+        "640:354",
+        "640:338",
+        "640:350",
+        "640:321",
+        "640:485",
+        "640:481",
+        "640:285",
+        "640:291",
+        "640:487",
+        "640:250",
+        "640:478"
+      ]
+    },
+    "Creative Writing": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Criminology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Critical Intelligence Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Culinary Nutrition": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Dance": {
+      "school": "MGSA",
+      "requirements": []
+    },
+    "Developmental Psychology": {
+      "school": "SAS",
+      "requirements": [
+        "830:490",
+        "830:382",
+        "830:331",
+        "830:388",
+        "830:484",
+        "830:333",
+        "830:432",
+        "830:346",
+        "830:123",
+        "830:497",
+        "830:394",
+        "640:025",
+        "830:380",
+        "830:101",
+        "830:200",
+        "830:271",
+        "830:201",
+        "830:361",
+        "830:335"
+      ]
+    },
+    "Digital Communication, Information, and Media": {
+      "school": "SCI",
+      "requirements": []
+    },
+    "Ecology, Evolution, and Natural Resources": {
+      "school": "SEBS",
+      "requirements": [
+        "750:203",
+        "750:206",
+        "750:204",
+        "119:115",
+        "216:440",
+        "160:161",
+        "160:162",
+        "750:193",
+        "119:116",
+        "750:205",
+        "160:171",
+        "750:194",
+        "119:117"
+      ]
+    },
+    "Economics": {
+      "school": "SAS",
+      "requirements": [
+        "220:322",
+        "960:285",
+        "640:135",
+        "220:200",
+        "960:211",
+        "220:102"
+      ]
+    },
+    "Education as a Social Science": {
+      "school": "GSE",
+      "requirements": []
+    },
+    "English": {
+      "school": "SAS",
+      "requirements": [
+        "694:301"
+      ]
+    },
+    "Entomology": {
+      "school": "SEBS",
+      "requirements": [
+        "370:406",
+        "119:115",
+        "216:369",
+        "370:350",
+        "776:408",
+        "373:101",
+        "216:351",
+        "550:371",
+        "370:404",
+        "370:352",
+        "730:103",
+        "640:135",
+        "902:300",
+        "160:161",
+        "070:102",
+        "370:414",
+        "370:415",
+        "370:380",
+        "370:495",
+        "373:362",
+        "372:202",
+        "370:407",
+        "355:103",
+        "015:497",
+        "190:101"
+      ]
+    },
+    "Entrepreneurship": {
+      "school": "RBS",
+      "requirements": [
+        "136:400",
+        "136:485",
+        "136:494",
+        "136:450",
+        "136:370",
+        "136:487",
+        "382:303",
+        "390:300",
+        "136:386",
+        "382:302",
+        "136:385",
+        "136:405",
+        "136:486"
+      ]
+    },
+    "Environmental and Business Economics": {
+      "school": "SEBS",
+      "requirements": [
+        "220:415",
+        "220:322",
+        "790:327",
+        "010:272",
+        "373:403",
+        "373:241",
+        "220:300",
+        "373:404",
+        "373:352",
+        "373:215",
+        "373:218",
+        "373:371",
+        "374:314",
+        "373:362",
+        "373:211",
+        "373:200",
+        "373:402",
+        "373:323",
+        "373:351",
+        "355:101",
+        "960:285",
+        "373:210",
+        "220:301",
+        "960:211",
+        "373:335"
+      ]
+    },
+    "Environmental Geomatics": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Environmental Planning": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Environmental Policy, Institutions, and Behavior": {
+      "school": "SEBS",
+      "requirements": [
+        "374:312",
+        "374:325",
+        "374:110",
+        "374:430",
+        "374:483",
+        "374:460",
+        "374:299",
+        "374:490",
+        "374:322",
+        "374:314",
+        "762:205",
+        "374:436",
+        "640:026",
+        "374:335",
+        "374:311",
+        "374:433",
+        "355:101",
+        "374:428",
+        "374:399",
+        "374:426",
+        "374:240",
+        "960:211",
+        "374:481",
+        "374:141",
+        "374:201"
+      ]
+    },
+    "Environmental Sciences": {
+      "school": "SEBS",
+      "requirements": [
+        "119:115",
+        "375:407",
+        "375:303",
+        "119:103",
+        "216:351",
+        "375:360",
+        "375:322",
+        "374:460",
+        "680:201",
+        "375:421",
+        "375:450",
+        "375:201",
+        "375:302",
+        "375:310",
+        "680:390",
+        "375:346",
+        "160:161",
+        "375:453",
+        "375:434",
+        "375:307",
+        "832:335",
+        "375:444",
+        "375:424",
+        "160:307",
+        "375:340"
+      ]
+    },
+    "Environmental Studies": {
+      "school": "SAS",
+      "requirements": [
+        "070:111",
+        "556:143",
+        "460:110",
+        "450:213",
+        "070:213",
+        "119:160",
+        "670:102",
+        "381:101",
+        "375:103",
+        "450:101",
+        "460:101",
+        "216:110",
+        "460:100"
+      ]
+    },
+    "European Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Fisheries Science": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Food Science": {
+      "school": "SEBS",
+      "requirements": [
+        "373:211",
+        "373:200",
+        "373:422",
+        "355:101",
+        "960:285",
+        "373:210",
+        "010:272",
+        "960:211",
+        "373:241",
+        "373:215",
+        "198:170",
+        "373:201",
+        "373:321"
+      ]
+    },
+    "French": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Gender and Media": {
+      "school": "SAS/SCI",
+      "requirements": [
+        "988:258",
+        "988:257",
+        "189:251",
+        "988:385",
+        "547:340",
+        "567:499",
+        "988:341",
+        "988:200",
+        "988:259",
+        "988:499",
+        "567:200",
+        "988:317",
+        "567:380",
+        "988:202",
+        "567:215",
+        "988:255",
+        "567:274"
+      ]
+    },
+    "Geography": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Geological Sciences": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "German": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Greek (Ancient)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Greek (Modern)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Green Technology": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Health Administration": {
+      "school": "EJB",
+      "requirements": [
+        "501:420",
+        "501:395",
+        "010:272",
+        "775:499",
+        "501:333",
+        "355:315",
+        "501:332",
+        "355:303",
+        "501:203",
+        "501:260",
+        "775:300",
+        "501:310",
+        "775:395",
+        "501:425",
+        "355:101",
+        "501:410",
+        "501:335",
+        "501:356",
+        "355:302",
+        "501:363",
+        "775:205",
+        "775:450",
+        "501:354",
+        "501:207"
+      ]
+    },
+    "Health and Society": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Hebrew Language (Modern)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Hindi": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "History": {
+      "school": "SAS",
+      "requirements": [
+        "510:370",
+        "563:360",
+        "563:497",
+        "563:464"
+      ]
+    },
+    "Holocaust Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Horticultural Therapy": {
+      "school": "SEBS",
+      "requirements": [
+        "776:400",
+        "776:225",
+        "776:405",
+        "119:115",
+        "776:321",
+        "776:415",
+        "020:321",
+        "550:340",
+        "020:436",
+        "776:427",
+        "216:411",
+        "776:442",
+        "776:391",
+        "776:211",
+        "160:161",
+        "776:313",
+        "830:340",
+        "776:201",
+        "776:341",
+        "020:340",
+        "020:255",
+        "776:205",
+        "776:425",
+        "776:390",
+        "776:221"
+      ]
+    },
+    "Human Resource Management": {
+      "school": "SMLR",
+      "requirements": [
+        "533:313",
+        "533:311",
+        "533:312",
+        "533:301"
+      ]
+    },
+    "Hungarian": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "International and Global Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Italian": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Italian Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Japanese": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Jewish Studies": {
+      "school": "SAS",
+      "requirements": [
+        "563:202",
+        "563:464",
+        "563:201"
+      ]
+    },
+    "Korean": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Labor Studies": {
+      "school": "SMLR",
+      "requirements": []
+    },
+    "Landscape Design": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Language and Culture of Ancient Israel": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Latin": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Latin American Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Latino and Caribbean Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Law and History": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Leadership Skills": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Linguistics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Marine Sciences": {
+      "school": "SEBS",
+      "requirements": [
+        "628:451",
+        "628:410",
+        "776:400",
+        "216:240",
+        "119:115",
+        "628:340",
+        "628:363",
+        "694:301",
+        "694:313",
+        "216:351",
+        "115:313",
+        "628:201",
+        "216:360",
+        "115:301",
+        "680:390",
+        "640:135",
+        "146:356",
+        "680:481",
+        "160:161",
+        "216:324",
+        "146:357",
+        "628:309",
+        "628:341",
+        "119:117",
+        "628:120"
+      ]
+    },
+    "Mathematics": {
+      "school": "SAS",
+      "requirements": [
+        "220:103",
+        "640:491",
+        "220:322",
+        "198:111",
+        "640:486",
+        "010:272",
+        "640:373",
+        "640:477",
+        "220:102",
+        "220:421",
+        "220:320",
+        "198:107",
+        "640:311",
+        "220:321",
+        "640:151",
+        "640:354",
+        "640:338",
+        "640:350",
+        "640:321",
+        "640:485",
+        "640:481",
+        "640:285",
+        "640:291",
+        "640:487",
+        "640:250"
+      ]
+    },
+    "Medicinal and Economic Botany": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Medieval Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Meteorology": {
+      "school": "SEBS",
+      "requirements": [
+        "628:451",
+        "670:334",
+        "375:303",
+        "670:461",
+        "670:431",
+        "670:323",
+        "960:379",
+        "670:453",
+        "670:434",
+        "670:324",
+        "355:301",
+        "760:205",
+        "554:487",
+        "640:251",
+        "375:346",
+        "160:161",
+        "355:201",
+        "670:102",
+        "670:493",
+        "670:212",
+        "750:205",
+        "670:433",
+        "640:151",
+        "670:211",
+        "554:397"
+      ]
+    },
+    "Microbiology": {
+      "school": "SEBS",
+      "requirements": [
+        "160:161",
+        "119:115",
+        "119:101"
+      ]
+    },
+    "Middle Eastern Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Military Science (Aerospace)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Military Science (Military)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Military Science (Naval)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Military Science (Non-commissioning)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Music": {
+      "school": "MGSA",
+      "requirements": [
+        "700:223",
+        "700:301",
+        "701:407",
+        "701:201",
+        "700:121",
+        "700:221",
+        "700:253",
+        "700:329",
+        "700:123",
+        "700:153",
+        "700:419",
+        "700:203",
+        "701:358",
+        "701:357",
+        "700:127"
+      ]
+    },
+    "Nonprofit Leadership": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Nutrition": {
+      "school": "SEBS",
+      "requirements": [
+        "709:448",
+        "709:485",
+        "709:102",
+        "119:103",
+        "694:301",
+        "709:201",
+        "709:202",
+        "709:401",
+        "709:255",
+        "115:301",
+        "146:356",
+        "160:161",
+        "709:400",
+        "709:489",
+        "709:484",
+        "709:493",
+        "709:404",
+        "160:307",
+        "355:101",
+        "119:127",
+        "119:128",
+        "709:481",
+        "709:483",
+        "709:345",
+        "709:301"
+      ]
+    },
+    "Operations Research": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Organizational Leadership": {
+      "school": "SAS",
+      "requirements": [
+        "713:404",
+        "713:202",
+        "730:109",
+        "730:201",
+        "713:303",
+        "730:202",
+        "730:101"
+      ]
+    },
+    "Persian": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Philosophy": {
+      "school": "SAS",
+      "requirements": [
+        "220:103",
+        "220:432",
+        "220:322",
+        "220:320",
+        "220:331",
+        "220:417",
+        "220:120",
+        "220:402",
+        "220:390",
+        "220:102",
+        "220:327"
+      ]
+    },
+    "Philosophy, Politics, and Economics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Physics": {
+      "school": "SAS",
+      "requirements": [
+        "105:343",
+        "750:341",
+        "750:441",
+        "750:443",
+        "750:344",
+        "750:444",
+        "750:361",
+        "750:381",
+        "750:343",
+        "750:442"
+      ]
+    },
+    "Planning and Public Policy": {
+      "school": "EJB",
+      "requirements": [
+        "355:303",
+        "220:103",
+        "355:302",
+        "790:104",
+        "355:101",
+        "775:300",
+        "833:210",
+        "762:499",
+        "971:201",
+        "775:205",
+        "775:101",
+        "775:395",
+        "220:102",
+        "355:315",
+        "762:400",
+        "762:497"
+      ]
+    },
+    "Plant Science": {
+      "school": "SEBS",
+      "requirements": [
+        "750:204",
+        "119:115",
+        "776:202",
+        "373:241",
+        "115:403",
+        "375:360",
+        "020:321",
+        "119:116",
+        "607:385",
+        "554:487",
+        "640:115",
+        "115:404",
+        "750:201",
+        "730:107",
+        "550:240",
+        "730:250",
+        "640:135",
+        "902:300",
+        "160:161",
+        "375:453",
+        "776:211",
+        "776:391",
+        "160:308",
+        "750:194",
+        "119:117"
+      ]
+    },
+    "Political Science": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Portuguese": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Psychology": {
+      "school": "SAS",
+      "requirements": [
+        "830:432",
+        "830:490",
+        "830:382",
+        "830:380",
+        "830:123",
+        "830:101",
+        "830:388",
+        "830:361",
+        "830:497",
+        "830:271",
+        "830:484",
+        "830:394",
+        "830:333",
+        "830:331",
+        "830:346",
+        "830:335"
+      ]
+    },
+    "Public Administration and Management": {
+      "school": "EJB",
+      "requirements": [
+        "762:233",
+        "971:101",
+        "843:313",
+        "971:202",
+        "833:210",
+        "843:209",
+        "762:210",
+        "833:313",
+        "843:210",
+        "762:313",
+        "762:103",
+        "975:101",
+        "832:202",
+        "833:360",
+        "762:202",
+        "762:201",
+        "501:360",
+        "975:202",
+        "843:360",
+        "971:201",
+        "971:233",
+        "762:360"
+      ]
+    },
+    "Public Garden Management": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Public Health": {
+      "school": "EJB",
+      "requirements": [
+        "160:128",
+        "832:212",
+        "160:127",
+        "775:499",
+        "355:303",
+        "775:300",
+        "832:201",
+        "160:161",
+        "775:395",
+        "832:335",
+        "335:315",
+        "355:101",
+        "335:302",
+        "832:497",
+        "832:240",
+        "832:356",
+        "775:205",
+        "832:339",
+        "775:450"
+      ]
+    },
+    "Public Policy": {
+      "school": "EJB",
+      "requirements": [
+        "355:303",
+        "220:103",
+        "355:302",
+        "790:104",
+        "355:101",
+        "775:300",
+        "833:210",
+        "762:499",
+        "971:201",
+        "775:205",
+        "775:101",
+        "775:395",
+        "220:102",
+        "355:315",
+        "762:400",
+        "762:497"
+      ]
+    },
+    "Quantitative Economics": {
+      "school": "SAS",
+      "requirements": [
+        "220:423",
+        "220:103",
+        "220:481",
+        "220:483",
+        "220:322",
+        "640:477",
+        "220:102",
+        "220:320",
+        "640:135",
+        "220:410",
+        "220:321",
+        "220:480",
+        "220:488",
+        "220:485",
+        "960:285",
+        "960:211",
+        "220:482",
+        "640:481",
+        "220:424",
+        "220:489",
+        "640:136"
+      ]
+    },
+    "Religion": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Russian": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Science Communication": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Science Outreach": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Sexualities Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Social Justice": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Sociology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "South Asian Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Spanish": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Sport Management": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Statistics": {
+      "school": "SAS",
+      "requirements": [
+        "640:151",
+        "640:251",
+        "640:291",
+        "640:244",
+        "640:250",
+        "640:300"
+      ]
+    },
+    "STEM in Society": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Sustainability": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Sustainable Global Food Systems": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Theater Arts": {
+      "school": "MGSA",
+      "requirements": []
+    },
+    "Turkish": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Urban Forestry": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Urban Studies": {
+      "school": "EJB",
+      "requirements": [
+        "762:233",
+        "975:296",
+        "971:101",
+        "832:235",
+        "833:310",
+        "971:202",
+        "762:231",
+        "833:230",
+        "975:298",
+        "762:307",
+        "775:202",
+        "975:231",
+        "975:307",
+        "833:231",
+        "975:235",
+        "975:101",
+        "832:202",
+        "762:202",
+        "975:352",
+        "762:230",
+        "975:202",
+        "975:233",
+        "762:310",
+        "762:101",
+        "975:310"
+      ]
+    },
+    "Women's, Gender, and Sexuality Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Minors without an asterisk are available through the School of Arts and Sciences.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "*Available through the School of Environmental and Biological Sciences": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "**Available through the Mason Gross School of the Arts": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "***Available through the School of Management and Labor Relations": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "****Available through the Edward J. Bloustein School of Planning and Public Policy": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "*****Available through the Graduate School of Education": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "******Available through the School of Communication and Information": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "*******Available through the Rutgers Business School: Undergraduate-Newark and New Brunswick": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "********Available jointly through the School of Arts and Sciences and the School of Communication and Information": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Certificate Programs (NBUG)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "CERTIFICATE PROGRAMS": {
+      "school": "SAS",
+      "requirements": [
+        "220:103",
+        "790:406",
+        "508:367",
+        "512:322",
+        "510:261",
+        "730:358",
+        "512:404",
+        "202:204",
+        "220:102",
+        "506:236",
+        "202:203",
+        "070:360",
+        "790:426",
+        "512:317",
+        "920:361",
+        "730:345",
+        "920:304",
+        "512:253",
+        "790:404",
+        "512:308",
+        "506:301",
+        "506:255",
+        "988:307",
+        "506:220",
+        "506:299"
+      ]
+    },
+    "Certificate programs are available in a number of fields and are open to all undergraduate students at Rutgers": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "University-New Brunswick, regardless of school affiliation.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "The certificate programs are designed to allow students to complement their major program with study in either a": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "broad, but well-defined, area or a specialized field. Since the certificate programs are intended to enhance a major": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "program, a certificate may be awarded only in conjunction with the awarding of a baccalaureate degree in a major": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "field.": {
+      "school": "SAS",
+      "requirements": [
+        "573:413",
+        "573:202",
+        "550:331",
+        "119:103",
+        "640:111",
+        "640:112",
+        "573:409",
+        "460:100",
+        "640:115",
+        "573:231",
+        "670:102",
+        "372:462",
+        "550:241",
+        "355:101",
+        "550:231",
+        "550:237",
+        "550:301",
+        "373:202",
+        "573:233",
+        "573:232",
+        "450:101",
+        "550:442",
+        "670:101",
+        "776:102"
+      ]
+    },
+    "Academic Spanish for Heritage Speakers": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Akan Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Akan Translation": {
+      "school": "SAS",
+      "requirements": []
+    }
+  },
+  "certificates": {
+    "Sexualities Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Social Justice": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Sociology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "South Asian Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Spanish": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Sport Management": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Statistics": {
+      "school": "SAS",
+      "requirements": [
+        "640:151",
+        "640:251",
+        "640:291",
+        "640:244",
+        "640:250",
+        "640:300"
+      ]
+    },
+    "STEM in Society": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Sustainability": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Sustainable Global Food Systems": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Theater Arts": {
+      "school": "MGSA",
+      "requirements": []
+    },
+    "Turkish": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Urban Forestry": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Urban Studies": {
+      "school": "EJB",
+      "requirements": [
+        "762:233",
+        "975:296",
+        "971:101",
+        "832:235",
+        "833:310",
+        "971:202",
+        "762:231",
+        "833:230",
+        "975:298",
+        "762:307",
+        "775:202",
+        "975:231",
+        "975:307",
+        "833:231",
+        "975:235",
+        "975:101",
+        "832:202",
+        "762:202",
+        "975:352",
+        "762:230",
+        "975:202",
+        "975:233",
+        "762:310",
+        "762:101",
+        "975:310"
+      ]
+    },
+    "Women's, Gender, and Sexuality Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Minors without an asterisk are available through the School of Arts and Sciences.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "*Available through the School of Environmental and Biological Sciences": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "**Available through the Mason Gross School of the Arts": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "***Available through the School of Management and Labor Relations": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "****Available through the Edward J. Bloustein School of Planning and Public Policy": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "*****Available through the Graduate School of Education": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "******Available through the School of Communication and Information": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "*******Available through the Rutgers Business School: Undergraduate-Newark and New Brunswick": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "********Available jointly through the School of Arts and Sciences and the School of Communication and Information": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Certificate Programs (NBUG)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "CERTIFICATE PROGRAMS": {
+      "school": "SAS",
+      "requirements": [
+        "220:103",
+        "790:406",
+        "508:367",
+        "512:322",
+        "510:261",
+        "730:358",
+        "512:404",
+        "202:204",
+        "220:102",
+        "506:236",
+        "202:203",
+        "070:360",
+        "790:426",
+        "512:317",
+        "920:361",
+        "730:345",
+        "920:304",
+        "512:253",
+        "790:404",
+        "512:308",
+        "506:301",
+        "506:255",
+        "988:307",
+        "506:220",
+        "506:299"
+      ]
+    },
+    "Certificate programs are available in a number of fields and are open to all undergraduate students at Rutgers": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "University-New Brunswick, regardless of school affiliation.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "The certificate programs are designed to allow students to complement their major program with study in either a": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "broad, but well-defined, area or a specialized field. Since the certificate programs are intended to enhance a major": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "program, a certificate may be awarded only in conjunction with the awarding of a baccalaureate degree in a major": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "field.": {
+      "school": "SAS",
+      "requirements": [
+        "573:413",
+        "573:202",
+        "550:331",
+        "119:103",
+        "640:111",
+        "640:112",
+        "573:409",
+        "460:100",
+        "640:115",
+        "573:231",
+        "670:102",
+        "372:462",
+        "550:241",
+        "355:101",
+        "550:231",
+        "550:237",
+        "550:301",
+        "373:202",
+        "573:233",
+        "573:232",
+        "450:101",
+        "550:442",
+        "670:101",
+        "776:102"
+      ]
+    },
+    "Academic Spanish for Heritage Speakers": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Akan Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Akan Translation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Ancient Greek Postbaccalaureate Certificate": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Arabic Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Arabic Translation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Asian/Asian American Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Behavioral Pharmacology": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Bengali Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Bengali Translation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Cartography/Geospatial Information Science (GIS)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Chemistry Education": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Civic Engagement/Public Scholarship Pathway": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Community Development": {
+      "school": "EJB",
+      "requirements": []
+    },
+    "Community Sustainability": {
+      "school": "EJB",
+      "requirements": []
+    },
+    "Computational Economics and Data Analytics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Computational Genetics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Curation and Cultural Programming": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Creative Writing": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Drama and Performance Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Eagleton Undergraduate Associates (American Politics and Public Policy)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Economic Theory": {
+      "school": "SAS",
+      "requirements": [
+        "220:413",
+        "220:423",
+        "220:481",
+        "220:435",
+        "220:439",
+        "220:421",
+        "220:300",
+        "220:477",
+        "220:410",
+        "220:411",
+        "220:436",
+        "220:495"
+      ]
+    },
+    "Environmental Geomatics": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Environmental Planning": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Evolutionary Medicine": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Financial Economics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Food Systems Education and Administration": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "French Basic Knowledge": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Genetic Counseling": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "German Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Global Economics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Global Politics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Health Disparities": {
+      "school": "EJB",
+      "requirements": []
+    },
+    "Hebrew Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Hebrew Translation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Hindi Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Hindi Translation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Historic Preservation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Horticultural Therapy": {
+      "school": "SEBS",
+      "requirements": [
+        "776:400",
+        "776:225",
+        "776:405",
+        "119:115",
+        "776:321",
+        "776:415",
+        "020:321",
+        "550:340",
+        "020:436",
+        "776:427",
+        "216:411",
+        "776:442",
+        "776:391",
+        "776:211",
+        "160:161",
+        "776:313",
+        "830:340",
+        "776:201",
+        "776:341",
+        "020:340",
+        "020:255",
+        "776:205",
+        "776:425",
+        "776:390",
+        "776:221"
+      ]
+    },
+    "Hungarian Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "International Geographic Perspectives": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "International Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Italian Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Korean-English Translation/Interpreting": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Latin Postbaccalaureate Certificate": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Leadership Scholars Certificate (Institute for Women's Leadership)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Medicinal and Economic Botany": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Paul Robeson Leadership Certificate": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Persian Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Persian Translation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Philosophy, Politics, and Economics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Plant Biosecurity": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Portuguese Major/Global Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Professional Writing": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Public Health Advocacy/Education": {
+      "school": "EJB",
+      "requirements": []
+    },
+    "Public Health Management": {
+      "school": "EJB",
+      "requirements": []
+    },
+    "Public Health Preparedness": {
+      "school": "EJB",
+      "requirements": []
+    },
+    "Public History": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Public Policy Economics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Quantitative Economics": {
+      "school": "SAS",
+      "requirements": [
+        "220:423",
+        "220:103",
+        "220:481",
+        "220:483",
+        "220:322",
+        "640:477",
+        "220:102",
+        "220:320",
+        "640:135",
+        "220:410",
+        "220:321",
+        "220:480",
+        "220:488",
+        "220:485",
+        "960:285",
+        "960:211",
+        "220:482",
+        "640:481",
+        "220:424",
+        "220:489",
+        "640:136"
+      ]
+    },
+    "Quantitative Political Science Methods": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Real Estate": {
+      "school": "EJB",
+      "requirements": []
+    },
+    "Recording Arts": {
+      "school": "MGSA",
+      "requirements": []
+    },
+    "Russian Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Rutgers Civic/International Scholars Program": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Rutgers International Civic Scholar": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Sanskrit Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Sanskrit Translation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Spanish-English, English-Spanish Translation Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Spanish-English Translation/Interpreting Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Spanish Major/Global Studies": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Speech and Hearing Sciences in Linguistics": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Swahili Proficiency Swahili Translation Teacher Education": {
+      "school": "SMLR",
+      "requirements": []
+    },
+    "Technical Writing": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Turfgrass Science": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Turkish Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Turkish Translation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Urban/Community Forestry": {
+      "school": "SEBS",
+      "requirements": []
+    },
+    "Urban Planning": {
+      "school": "EJB",
+      "requirements": [
+        "971:318",
+        "971:395",
+        "971:316",
+        "355:101",
+        "971:202",
+        "971:314",
+        "971:403",
+        "971:315",
+        "971:404",
+        "971:201",
+        "971:250",
+        "775:205",
+        "971:463",
+        "971:405",
+        "975:101"
+      ]
+    },
+    "Urdu Proficiency": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Urdu Translation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Women's Global Health Leadership": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Youth Mentoring Theory and Practice": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "***The Graduate School of Education administers teacher certification programs in numerous areas. SeeEducation": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Honors Programs (NBUG)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "HONORS PROGRAMS": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "honors programs that provide outstanding students with challenges beyond those found in regular coursework.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "different schools at Rutgers. It provides a living-learning experience in the first year, and prepares engaged, talented": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "students for the challenges of the 21st century with special curricula and opportunities. With its emphasis on": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "interdisciplinary thinking, hands-on research, and creative problem solving, students will work closely with Rutgers'": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "world-renowned faculty in small classes, workshops, and mentorships.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Many of the undergraduate schools offer specially designed honors programs that involve introductory seminars": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "for well-prepared first-year students. Selection into a school honors program is based on SAT or ACT scores and": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "high school record, and is at the invitation of each school.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "In addition, exceptional upper-class students who are not in school honors programs may be selected to participate": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "in honors seminars offered by the department of their major. Information on school honors programs may be found": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "in the school sections of this catalog; departmental honors programs are described under each major.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Students who participate in honors programs receive a high degree of individual attention from faculty. Seminars,": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "tutorials, lectures, discussions, and independent research afford an opportunity for sophisticated scholarship and": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "growth in self-understanding and also ma y assist Rutgers students in pursuing their special interests and": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "professional ambitions after graduation.": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Prizes and Awards (NBUG)": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "PRIZES AND AWARDS": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "Many academic departments offer prizes and awards for outstanding achievement. In some cases, eligibility is": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "based on achie vement in specific courses. Information about these a wards should be obtained from the": {
+      "school": "SAS",
+      "requirements": []
+    },
+    "departments so that students are aware in advance of the criteria for selection.": {
+      "school": "SAS",
+      "requirements": []
+    }
+  }
+}

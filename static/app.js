@@ -1,563 +1,319 @@
-// Campus color mapping (matching the image reference)
-const CAMPUS_COLORS = {
-    'ONLINE': '#dc3545',      // Red
-    'BUS': '#007bff',         // Blue
-    'CAC': '#ffc107',         // Yellow
-    'D/C': '#28a745',         // Green
-    'LIV': '#fd7e14',         // Orange
-    'DOWNTOWN': '#e83e8c',    // Pink
-    'CAMDEN': '#6f42c1',      // Purple
-    'NEWARK': '#6c757d',      // Light Purple
-    '': '#6c757d'             // Grey (Other/Unknown)
-};
-
-const CAMPUS_NAMES = {
-    'ONLINE': 'Online',
-    'BUS': 'Busch',
-    'CAC': 'College Avenue',
-    'D/C': 'Douglass / Cook',
-    'LIV': 'Livingston',
-    'DOWNTOWN': 'Downtown',
-    'CAMDEN': 'Camden',
-    'NEWARK': 'Newark',
-    '': 'Other/Unknown'
-};
-
-// Course History Management
-function loadCourseHistory() {
-    const saved = localStorage.getItem('rutgers_course_history');
-    if (saved) {
-        try {
-            const courses = JSON.parse(saved);
-            return courses;
-        } catch (e) {
-            console.error('Error loading course history:', e);
-            return [];
-        }
-    }
-    return [];
-}
-
-function saveCourseHistory(courses) {
-    try {
-        localStorage.setItem('rutgers_course_history', JSON.stringify(courses));
-        return true;
-    } catch (e) {
-        console.error('Error saving course history:', e);
-        return false;
-    }
-}
-
-function parseCourseCodes(input) {
-    // Parse course codes from text (handles commas, newlines, spaces)
-    const codes = input
-        .split(/[,\n\r]+/)
-        .map(code => code.trim())
-        .filter(code => {
-            // Validate format: 3 digits : 3 digits (e.g., 220:102)
-            return /^\d{2,3}:\d{3}$/.test(code);
-        });
-    return [...new Set(codes)]; // Remove duplicates
-}
-
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    const chatInput = document.getElementById('chatInput');
-    const sendButton = document.getElementById('sendButton');
-    const chatLog = document.getElementById('chatLog');
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
     
-    // Send message on button click
-    sendButton.addEventListener('click', sendMessage);
+    const inputArea = document.querySelector('.input-area');
+    const importBtn = document.createElement('button');
+    importBtn.innerHTML = '<i class="fas fa-file-import"></i>';
+    importBtn.title = "Import Course History";
+    importBtn.style.marginLeft = "10px";
+    importBtn.style.backgroundColor = "#555";
     
-    // Send message on Enter key
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
+    const historyBtn = document.createElement('button');
+    historyBtn.innerHTML = '<i class="fas fa-history"></i>';
+    historyBtn.title = "View Imported History";
+    historyBtn.style.marginLeft = "10px";
+    historyBtn.style.backgroundColor = "#007bff";
+    historyBtn.style.display = "none"; 
+
+    // NEW: Clear History Button
+    const clearBtn = document.createElement('button');
+    clearBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    clearBtn.title = "Clear History";
+    clearBtn.style.marginLeft = "10px";
+    clearBtn.style.backgroundColor = "#dc3545";
+    clearBtn.style.display = "none";
+
+    inputArea.insertBefore(importBtn, sendBtn);
+    inputArea.insertBefore(historyBtn, sendBtn);
+    inputArea.insertBefore(clearBtn, sendBtn);
+
+    let currentHistory = [];
+
+    historyBtn.addEventListener('click', () => {
+        showHistoryModal(currentHistory);
     });
     
-    // Initialize campus legend
-    updateCampusLegend();
-    
-    // Course History UI
-    const toggleHistory = document.getElementById('toggleHistory');
-    const historyPanel = document.getElementById('courseHistoryPanel');
-    const historyInput = document.getElementById('courseHistoryInput');
-    const saveHistoryBtn = document.getElementById('saveHistory');
-    const clearHistoryBtn = document.getElementById('clearHistory');
-    const historyStatus = document.getElementById('historyStatus');
-    
-    // Load saved history
-    const savedCourses = loadCourseHistory();
-    if (savedCourses.length > 0) {
-        historyInput.value = savedCourses.join('\n');
-    }
-    
-    // Toggle history panel
-    toggleHistory.addEventListener('click', () => {
-        const isVisible = historyPanel.style.display !== 'none';
-        historyPanel.style.display = isVisible ? 'none' : 'block';
-        toggleHistory.textContent = isVisible ? 'Show' : 'Hide';
-    });
-    
-    // Save history
-    saveHistoryBtn.addEventListener('click', () => {
-        const input = historyInput.value.trim();
-        if (!input) {
-            showHistoryStatus('Please enter at least one course code.', 'error');
-            return;
+    clearBtn.addEventListener('click', async () => {
+        if(confirm("Are you sure you want to clear your course history?")) {
+            await fetch('/api/clear_history', { method: 'POST' });
+            currentHistory = [];
+            historyBtn.style.display = "none";
+            clearBtn.style.display = "none";
+            addMessage("History cleared.", 'bot-message');
         }
+    });
+
+    function showHistoryModal(courses) {
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.85)';
+        overlay.style.display = 'flex';
+        overlay.style.justifyContent = 'center';
+        overlay.style.alignItems = 'center';
+        overlay.style.zIndex = '2000';
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-content';
+        modal.style.background = 'white';
+        modal.style.padding = '30px';
+        modal.style.borderRadius = '12px';
+        modal.style.width = '95%';
+        modal.style.height = '90%';
+        modal.style.maxWidth = '1400px';
+        modal.style.display = 'flex';
+        modal.style.flexDirection = 'column';
+        modal.innerHTML = '<button id="close-history" style="align-self:flex-end;">Close</button>';
         
-        const courses = parseCourseCodes(input);
-        if (courses.length === 0) {
-            showHistoryStatus('No valid course codes found. Format: 220:102, 198:111', 'error');
-            return;
-        }
-        
-        if (saveCourseHistory(courses)) {
-            showHistoryStatus(`Saved ${courses.length} course(s): ${courses.join(', ')}`, 'success');
-            // Send to backend
-            updateBackendHistory(courses);
-        } else {
-            showHistoryStatus('Error saving course history.', 'error');
-        }
-    });
-    
-    // Clear history
-    clearHistoryBtn.addEventListener('click', () => {
-        if (confirm('Clear all course history?')) {
-            historyInput.value = '';
-            saveCourseHistory([]);
-            showHistoryStatus('Course history cleared.', 'success');
-            updateBackendHistory([]);
-        }
-    });
-    
-    function showHistoryStatus(message, type) {
-        historyStatus.textContent = message;
-        historyStatus.className = `history-status ${type}`;
-        setTimeout(() => {
-            historyStatus.className = 'history-status';
-        }, 5000);
-    }
-    
-    function updateBackendHistory(courses) {
-        // Get session ID
-        const sessionId = localStorage.getItem('rutgers_session_id') || 'default_' + Date.now();
-        if (!localStorage.getItem('rutgers_session_id')) {
-            localStorage.setItem('rutgers_session_id', sessionId);
-        }
-        
-        // Send to backend API
-        fetch('/api/course-history', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Session-ID': sessionId
-            },
-            body: JSON.stringify({ courses: courses })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Course history updated on backend:', data);
-        })
-        .catch(error => {
-            console.error('Error updating backend history:', error);
+        const list = document.createElement('div');
+        list.style.overflowY = 'auto';
+        courses.forEach(c => {
+            const d = document.createElement('div');
+            d.innerText = `${c.code} - ${c.grade} (${c.semester})`;
+            list.appendChild(d);
         });
-    }
-});
-
-function sendMessage() {
-    const chatInput = document.getElementById('chatInput');
-    const message = chatInput.value.trim();
-    
-    if (!message) return;
-    
-    // Add user message to chat
-    addMessageToChat(message, 'user');
-    
-    // Clear input and disable button
-    chatInput.value = '';
-    sendButton.disabled = true;
-    sendButton.textContent = 'Sending...';
-    
-    // Get session ID (simple implementation)
-    const sessionId = localStorage.getItem('rutgers_session_id') || 'default_' + Date.now();
-    if (!localStorage.getItem('rutgers_session_id')) {
-        localStorage.setItem('rutgers_session_id', sessionId);
-    }
-    
-    // Send to backend
-    fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Session-ID': sessionId
-        },
-        body: JSON.stringify({ message: message })
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Add bot response
-        addMessageToChat(data.text_response, 'bot');
+        modal.appendChild(list);
         
-        // Update schedule if available
-        if (data.schedule_data && data.schedule_data.schedule) {
-            console.log('Schedule data received:', data.schedule_data);
-            renderSchedule(data.schedule_data);
-        } else {
-            console.log('No schedule data in response');
+        modal.querySelector('#close-history').onclick = () => overlay.remove();
+        document.body.appendChild(overlay);
+    }
+
+    importBtn.addEventListener('click', async () => {
+        const text = prompt("Paste your Degree Navigator history here:");
+        if (!text) return;
+        addMessage("Importing history...", 'bot-message', true);
+        try {
+            const response = await fetch('/api/parse_history', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: text })
+            });
+            const data = await response.json();
+            const loadingMsg = document.querySelector('div[id^="loading-"]');
+            if (loadingMsg) loadingMsg.remove();
+
+            if (data.courses && data.courses.length > 0) {
+                currentHistory = data.courses;
+                historyBtn.style.display = "inline-block";
+                clearBtn.style.display = "inline-block";
+                addMessage(`✅ Imported ${data.courses.length} courses.`, 'bot-message');
+            } else {
+                addMessage("No courses found.", 'bot-message error');
+            }
+        } catch (e) {
+            console.error(e);
+            addMessage("Error importing.", 'bot-message error');
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        addMessageToChat('Sorry, an error occurred. Please try again.', 'bot');
-    })
-    .finally(() => {
-        sendButton.disabled = false;
-        sendButton.textContent = 'Send';
-        chatInput.focus();
     });
-}
 
-function addMessageToChat(text, type) {
-    const chatLog = document.getElementById('chatLog');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${type}-message`;
-    
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'message-content';
-    
-    // Convert markdown-like text to HTML
-    const htmlText = formatMessage(text);
-    contentDiv.innerHTML = htmlText;
-    
-    messageDiv.appendChild(contentDiv);
-    chatLog.appendChild(messageDiv);
-    
-    // Scroll to bottom
-    chatLog.scrollTop = chatLog.scrollHeight;
-}
-
-function formatMessage(text) {
-    // Simple markdown-like formatting
-    let html = text
-        .replace(/\n/g, '<br>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-        .replace(/`(.*?)`/g, '<code>$1</code>')
-        .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-        .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-        .replace(/^# (.*$)/gm, '<h1>$1</h1>');
-    
-    return html;
-}
-
-function renderSchedule(scheduleData) {
-    const visualizer = document.getElementById('scheduleVisualizer');
-    
-    console.log('Rendering schedule:', scheduleData);
-    
-    if (!scheduleData || !scheduleData.schedule || scheduleData.schedule.length === 0) {
-        console.log('No schedule data to render');
-        visualizer.innerHTML = `
-            <div class="empty-schedule">
-                <div class="empty-icon">📅</div>
-                <p>No schedule to display</p>
-            </div>
-        `;
-        return;
-    }
-    
-    // Build schedule grid
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const timeSlots = generateTimeSlots(scheduleData.schedule);
-    
-    if (timeSlots.length === 0) {
-        console.error('No time slots generated');
-        visualizer.innerHTML = `
-            <div class="empty-schedule">
-                <div class="empty-icon">📅</div>
-                <p>Could not generate schedule grid</p>
-            </div>
-        `;
-        return;
-    }
-    
-    let html = '<div class="schedule-grid">';
-    
-    // Header row
-    html += '<div class="schedule-header-cell">Time</div>';
-    days.forEach(day => {
-        html += `<div class="schedule-header-cell">${day.substring(0, 3)}</div>`;
+    userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
     });
-    
-    // Time slots and day columns
-    timeSlots.forEach(timeSlot => {
-        // Time label
-        html += `<div class="schedule-time-cell">${timeSlot.label}</div>`;
+
+    sendBtn.addEventListener('click', sendMessage);
+
+    async function sendMessage() {
+        const text = userInput.value.trim();
+        if (!text) return;
+
+        addMessage(text, 'user-message');
+        userInput.value = '';
+        const loadingId = addMessage('Thinking...', 'bot-message', true);
+
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+            const data = await response.json();
+            removeMessage(loadingId);
+
+            if (data.message) {
+                addMessage(data.message, 'bot-message');
+            }
+
+            if (data.schedules && data.schedules.length > 0) {
+                displaySchedules(data.schedules);
+            }
+
+        } catch (error) {
+            removeMessage(loadingId);
+            addMessage("Server Error.", 'bot-message error');
+            console.error('Error:', error);
+        }
+    }
+
+    function addMessage(text, className, isLoading = false) {
+        const div = document.createElement('div');
+        div.className = `message ${className}`;
+        div.innerText = text;
+        if (isLoading) div.id = 'loading-' + Date.now();
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        return div.id;
+    }
+
+    function removeMessage(id) {
+        const el = document.getElementById(id);
+        if (el) el.remove();
+    }
+
+    // --- VISUALIZER ---
+    function displaySchedules(schedules) {
+        const container = document.createElement('div');
+        container.className = 'schedule-results';
         
-        // Day columns
+        const limit = Math.min(schedules.length, 5);
+        
+        for (let i = 0; i < limit; i++) {
+            const sched = schedules[i];
+            const schedDiv = document.createElement('div');
+            schedDiv.className = 'schedule-card';
+            schedDiv.innerHTML = `
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <strong>Option ${i + 1}</strong>
+                    <button class="view-grid-btn" style="font-size:0.8em; padding:2px 8px;">View Calendar</button>
+                </div>
+            `;
+            
+            const ul = document.createElement('ul');
+            sched.forEach(section => {
+                const li = document.createElement('li');
+                let timeDisplay = section.times.length > 0 ? section.times.join(', ') : "Online / By Arrangement";
+                const title = section.title || section.course;
+                
+                li.innerHTML = `
+                    <span class="course-code" style="font-weight:bold;">${title}</span> 
+                    <small style="color:#666;">(${section.course})</small>
+                    <span class="section-idx" style="margin-left:5px; background:#eee; padding:1px 4px; border-radius:3px;">Sec ${section.index}</span>
+                    <br><span style="color:#666; font-size:0.85em;">${timeDisplay}</span>
+                `;
+                ul.appendChild(li);
+            });
+            schedDiv.appendChild(ul);
+            
+            const calendarDiv = createCalendarGrid(sched);
+            calendarDiv.style.display = 'none';
+            schedDiv.appendChild(calendarDiv);
+            
+            const btn = schedDiv.querySelector('.view-grid-btn');
+            btn.onclick = () => {
+                if (calendarDiv.style.display === 'none') {
+                    calendarDiv.style.display = 'grid';
+                    ul.style.display = 'none';
+                    btn.innerText = "View List";
+                } else {
+                    calendarDiv.style.display = 'none';
+                    ul.style.display = 'block';
+                    btn.innerText = "View Calendar";
+                }
+            };
+
+            container.appendChild(schedDiv);
+        }
+        
+        if (schedules.length > limit) {
+            const moreDiv = document.createElement('div');
+            moreDiv.className = 'more-results';
+            moreDiv.innerText = `+ ${schedules.length - limit} more options available.`;
+            container.appendChild(moreDiv);
+        }
+
+        chatBox.appendChild(container);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function createCalendarGrid(schedule) {
+        const grid = document.createElement('div');
+        grid.className = 'calendar-grid';
+        grid.style.marginTop = '10px';
+        grid.style.border = '1px solid #ddd';
+        
+        const startHour = 8;
+        const endHour = 22;
+        const days = ['M', 'T', 'W', 'TH', 'F'];
+        
+        grid.style.gridTemplateColumns = '50px repeat(5, 1fr)';
+        grid.style.gridTemplateRows = `30px repeat(${(endHour - startHour) * 2}, 20px)`; 
+        
+        const timeHeader = document.createElement('div');
+        timeHeader.innerText = "";
+        grid.appendChild(timeHeader);
+        
         days.forEach(day => {
-            html += `<div class="schedule-day-column" data-day="${day}" data-time="${timeSlot.minutes}"></div>`;
+            const d = document.createElement('div');
+            d.innerText = day;
+            d.style.textAlign = 'center';
+            d.style.fontWeight = 'bold';
+            d.style.borderBottom = '1px solid #ccc';
+            grid.appendChild(d);
         });
-    });
-    
-    html += '</div>';
-    visualizer.innerHTML = html;
-    
-    console.log('Schedule grid created with', timeSlots.length, 'time slots');
-    
-    // Add course blocks
-    scheduleData.schedule.forEach(section => {
-        if (!section.meetings || section.meetings.length === 0) {
-            console.warn('Section has no meetings:', section);
-            return;
+        
+        for (let h = startHour; h < endHour; h++) {
+            const label = document.createElement('div');
+            label.innerText = `${h > 12 ? h - 12 : h} ${h >= 12 ? 'PM' : 'AM'}`;
+            label.style.fontSize = '0.7em';
+            label.style.textAlign = 'right';
+            label.style.paddingRight = '5px';
+            label.style.gridColumn = '1';
+            label.style.gridRow = `${(h - startHour) * 2 + 2} / span 2`;
+            grid.appendChild(label);
         }
         
-        section.meetings.forEach(meeting => {
-            if (!meeting) return;
-            
-            // Normalize day name
-            const rawDay = meeting.day;
-            const day = normalizeDay(rawDay);
-            if (!day) {
-                console.warn('Meeting has invalid day:', rawDay, meeting);
-                return;
-            }
-            
-            const startMinutes = timeToMinutes(meeting.start_time_24h || meeting.start_time);
-            const endMinutes = timeToMinutes(meeting.end_time_24h || meeting.end_time);
-            
-            if (!startMinutes || !endMinutes) {
-                console.warn('Could not parse times:', {
-                    start: meeting.start_time_24h || meeting.start_time,
-                    end: meeting.end_time_24h || meeting.end_time,
-                    meeting
-                });
-                return;
-            }
-            
-            const dayColumn = visualizer.querySelector(`[data-day="${day}"]`);
-            if (!dayColumn) {
-                console.warn('Day column not found for:', day, 'Available columns:', 
-                    Array.from(visualizer.querySelectorAll('[data-day]')).map(el => el.getAttribute('data-day')));
-                return;
-            }
-            
-            const courseBlock = createCourseBlock(section, meeting, startMinutes, endMinutes, timeSlots);
-            if (courseBlock) {
-                dayColumn.appendChild(courseBlock);
-            }
-        });
-    });
-    
-    // Update campus legend
-    updateCampusLegend(scheduleData.schedule);
-}
+        const colors = ['#e3f2fd', '#fce4ec', '#f3e5f5', '#e8f5e9', '#fff3e0', '#e0f7fa'];
+        let colorIdx = 0;
 
-function createCourseBlock(section, meeting, startMinutes, endMinutes, timeSlots) {
-    const block = document.createElement('div');
-    block.className = 'course-block';
-    
-    if (!timeSlots || timeSlots.length === 0) {
-        console.error('No time slots provided');
-        return block;
-    }
-    
-    // Calculate position and height
-    const firstSlot = timeSlots[0];
-    const slotHeight = 40; // pixels per 30-minute slot
-    const top = ((startMinutes - firstSlot.minutes) / 30) * slotHeight;
-    const height = ((endMinutes - startMinutes) / 30) * slotHeight;
-    
-    if (top < 0 || height <= 0) {
-        console.warn('Invalid position/height:', { top, height, startMinutes, endMinutes });
-        return block;
-    }
-    
-    block.style.top = `${Math.max(0, top)}px`;
-    block.style.height = `${Math.max(height, 60)}px`;
-    
-    // Get campus color
-    const campus = meeting.campus || meeting.campus_abbrev || '';
-    const campusKey = campus.toUpperCase();
-    const color = CAMPUS_COLORS[campusKey] || CAMPUS_COLORS[''] || '#6c757d';
-    block.style.backgroundColor = color;
-    
-    // Course info
-    const courseTitle = section.course_title || section.course_key || 'Unknown';
-    const courseCode = section.course_key || '';
-    const building = meeting.building || meeting.room || 'TBA';
-    const timeStr = `${meeting.start_time} - ${meeting.end_time}`;
-    
-    block.innerHTML = `
-        <div class="course-block-title">${courseTitle}</div>
-        <div class="course-block-code">${courseCode}</div>
-        <div class="course-block-time">${timeStr}</div>
-        <div class="course-block-building">${building}</div>
-    `;
-    
-    return block;
-}
-
-function normalizeDay(dayStr) {
-    if (!dayStr) return null;
-    const dayMap = {
-        'M': 'Monday', 'MONDAY': 'Monday',
-        'T': 'Tuesday', 'TUESDAY': 'Tuesday',
-        'W': 'Wednesday', 'WEDNESDAY': 'Wednesday',
-        'TH': 'Thursday', 'R': 'Thursday', 'THURSDAY': 'Thursday',
-        'F': 'Friday', 'FRIDAY': 'Friday'
-    };
-    const upper = dayStr.toUpperCase().trim();
-    if (dayMap[upper]) return dayMap[upper];
-    // Try partial match
-    for (const [key, value] of Object.entries(dayMap)) {
-        if (upper.includes(key) || key.includes(upper)) {
-            return value;
-        }
-    }
-    return null;
-}
-
-function generateTimeSlots(schedule) {
-    // Find min and max times
-    let minTime = 24 * 60; // 11:59 PM
-    let maxTime = 0; // 12:00 AM
-    
-    if (!schedule || !Array.isArray(schedule)) {
-        console.error('Invalid schedule data:', schedule);
-        return [];
-    }
-    
-    schedule.forEach(section => {
-        if (!section || !section.meetings || !Array.isArray(section.meetings)) {
-            console.warn('Invalid section:', section);
-            return;
-        }
-        
-        section.meetings.forEach(meeting => {
-            if (!meeting) return;
-            
-            const start = timeToMinutes(meeting.start_time_24h || meeting.start_time);
-            const end = timeToMinutes(meeting.end_time_24h || meeting.end_time);
-            
-            if (start && start > 0) minTime = Math.min(minTime, start);
-            if (end && end > 0) maxTime = Math.max(maxTime, end);
-        });
-    });
-    
-    // If no valid times found, return empty
-    if (minTime >= 24 * 60 || maxTime <= 0) {
-        console.error('No valid times found in schedule');
-        return [];
-    }
-    
-    // Round to nearest hour, with padding
-    minTime = Math.floor(minTime / 60) * 60;
-    maxTime = Math.ceil(maxTime / 60) * 60;
-    
-    // Add padding
-    minTime = Math.max(minTime - 60, 7 * 60); // Start at 7 AM at earliest
-    maxTime = Math.min(maxTime + 60, 23 * 60); // End at 11 PM at latest
-    
-    // Generate 30-minute slots
-    const slots = [];
-    for (let minutes = minTime; minutes <= maxTime; minutes += 30) {
-        slots.push({
-            minutes: minutes,
-            label: minutesToTime(minutes)
-        });
-    }
-    
-    return slots;
-}
-
-function timeToMinutes(timeStr) {
-    if (!timeStr) return null;
-    
-    // Convert to string and trim
-    timeStr = String(timeStr).trim();
-    
-    // Handle 24h format (HH:MM or H:MM)
-    const match24 = timeStr.match(/^(\d{1,2}):(\d{2})$/);
-    if (match24) {
-        const h = parseInt(match24[1]);
-        const m = parseInt(match24[2]);
-        if (h >= 0 && h < 24 && m >= 0 && m < 60) {
-            return h * 60 + m;
-        }
-    }
-    
-    // Handle 12h format (H:MM AM/PM or HH:MM AM/PM)
-    const match12 = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM|am|pm)$/i);
-    if (match12) {
-        let h = parseInt(match12[1]);
-        const m = parseInt(match12[2]);
-        const period = match12[3].toUpperCase();
-        
-        if (h < 1 || h > 12 || m < 0 || m >= 60) return null;
-        
-        if (period === 'PM' && h !== 12) h += 12;
-        if (period === 'AM' && h === 12) h = 0;
-        
-        return h * 60 + m;
-    }
-    
-    // Try to parse without AM/PM (assume 24h if reasonable, otherwise assume PM)
-    const matchNoPeriod = timeStr.match(/^(\d{1,2}):(\d{2})$/);
-    if (matchNoPeriod) {
-        let h = parseInt(matchNoPeriod[1]);
-        const m = parseInt(matchNoPeriod[2]);
-        if (h >= 0 && h < 24 && m >= 0 && m < 60) {
-            // If hour is 1-11, might be ambiguous, but assume 24h format
-            return h * 60 + m;
-        }
-    }
-    
-    console.warn('Could not parse time:', timeStr);
-    return null;
-}
-
-function minutesToTime(minutes) {
-    const h = Math.floor(minutes / 60);
-    const m = minutes % 60;
-    const period = h >= 12 ? 'PM' : 'AM';
-    const h12 = h > 12 ? h - 12 : (h === 0 ? 12 : h);
-    return `${h12}:${m.toString().padStart(2, '0')} ${period}`;
-}
-
-function updateCampusLegend(schedule) {
-    const legend = document.getElementById('campusLegend');
-    const campuses = new Set();
-    
-    if (schedule) {
         schedule.forEach(section => {
-            section.meetings.forEach(meeting => {
-                const campus = (meeting.campus || meeting.campus_abbrev || '').toUpperCase();
-                if (campus) campuses.add(campus);
+            const color = colors[colorIdx++ % colors.length];
+            const blockTitle = section.title || section.course;
+            
+            section.times.forEach(timeStr => {
+                const match = timeStr.match(/([A-Z]+)\s+(\d{4})-(\d{4})/);
+                if (!match) return;
+                
+                const day = match[1];
+                const start = match[2];
+                const end = match[3];
+                
+                const parseTime = (t) => {
+                    const h = parseInt(t.substring(0, 2));
+                    const m = parseInt(t.substring(2));
+                    return h + (m / 60);
+                };
+                
+                let sH = parseTime(start);
+                let eH = parseTime(end);
+                
+                if (sH < 8) sH += 12;
+                if (eH < 8) eH += 12;
+                
+                const colIdx = days.indexOf(day) + 2; 
+                if (colIdx < 2) return; 
+                
+                const rowStart = Math.floor((sH - startHour) * 2) + 2;
+                const rowSpan = Math.ceil((eH - sH) * 2);
+                
+                const block = document.createElement('div');
+                block.innerText = `${blockTitle}\n${start}-${end}`;
+                block.style.backgroundColor = color;
+                block.style.gridColumn = `${colIdx}`;
+                block.style.gridRow = `${rowStart} / span ${rowSpan}`;
+                block.style.fontSize = '0.75em';
+                block.style.padding = '2px';
+                block.style.borderRadius = '4px';
+                block.style.border = '1px solid #ccc';
+                block.style.overflow = 'hidden';
+                grid.appendChild(block);
             });
         });
+        
+        return grid;
     }
-    
-    // Always show common campuses
-    const commonCampuses = ['ONLINE', 'BUS', 'CAC', 'D/C', 'LIV'];
-    commonCampuses.forEach(campus => campuses.add(campus));
-    
-    let html = '';
-    Array.from(campuses).sort().forEach(campus => {
-        const color = CAMPUS_COLORS[campus] || CAMPUS_COLORS[''];
-        const name = CAMPUS_NAMES[campus] || campus;
-        html += `
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: ${color}"></div>
-                <span>${name}</span>
-            </div>
-        `;
-    });
-    
-    legend.innerHTML = html;
-}
-
+});
